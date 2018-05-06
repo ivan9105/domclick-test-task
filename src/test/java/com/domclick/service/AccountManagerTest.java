@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -17,6 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class AccountManagerTest extends BaseTestSupport {
     @Autowired
     private AccountManager accountManager;
+
+    private static volatile int optimisticCounter = 0;
 
     @Test
     public void transferTest() {
@@ -73,8 +76,43 @@ public class AccountManagerTest extends BaseTestSupport {
     }
 
     @Test
-    public void optimisticTest() {
-        //Todo
+    public void optimisticTest() throws InterruptedException {
+        User fromUser = createTestUser("Иван", "Долгорукий", "Петрович");
+        User toUser = createTestUser("Федор", "Игнатов", "Алексеевич");
+
+        Account fromAccount = createTestAccount(10000d, fromUser);
+        Account toAccount = createTestAccount(3000d, toUser);
+
+        final Long fromAccountId = fromAccount.getId();
+        final Long toAccountId = toAccount.getId();
+
+        int threadCount = 30;
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(() -> {
+                try {
+                    try {
+                        Thread.sleep(100L);
+                    } catch (InterruptedException ignore) {
+                    }
+                    accountManager.transfer(fromAccountId, toAccountId, 100d);
+                } catch (BadRequestException ignore) {
+                } catch (ObjectOptimisticLockingFailureException ole) {
+                    updateOptimisticCounter();
+                }
+            }).start();
+        }
+
+        Thread.sleep(1000L);
+
+        fromAccount = accountRepository.findById(fromAccount.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        toAccount = accountRepository.findById(toAccount.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+
+        Assert.assertEquals(fromAccount.getBalance(), (10000d - (threadCount - optimisticCounter) * 100d), 0d);
+        Assert.assertEquals(toAccount.getBalance(), (3000d + (threadCount - optimisticCounter) * 100d), 0d);
+        System.out.println("Optimistic counter: " + optimisticCounter);
+
+        userRepository.delete(fromUser);
+        userRepository.delete(toUser);
     }
 
     private boolean doTransfer(Account fromAccount, Account toAccount, Double value) {
@@ -115,8 +153,7 @@ public class AccountManagerTest extends BaseTestSupport {
         return fakeAccount;
     }
 
-    //Todo check validation
-    //Todo transaction
-    //Todo use pessimistic lock
-    //Todo add thread tests
+    private synchronized void updateOptimisticCounter() {
+        optimisticCounter++;
+    }
 }
