@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Пользователи</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Пользователи</h1>
+
+    <p>
+        <a href="/usersEdit" th:href="@{/usersEdit}">Создать</a>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.firstName}">Имя</td>
+            <td th:text="${user.lastName}">Фамилия</td>
+            <td th:text="${user.middleName}">Отчество</td>
+            <td>
+                <a href="/usersEdit/1" th:href="@{/usersEdit/__${user.id}__}">Редактировать</a>
+                <a href="/usersDelete/1" th:href="@{/usersDelete/__${user.id}__}">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
