@@ -25,24 +25,32 @@ public class BaseTestSupport {
     private SessionFactory sessionFactory;
 
     protected Account createTestAccount(User user) {
-        Account account = getTestAccount(user);
+        return createTestAccount(0d, user);
+    }
+
+    protected Account createTestAccount(Double balance, User user) {
+        Account account = getTestAccount(balance, user);
         account = accountRepository.save(account);
         return account;
     }
 
     protected User createTestUser() {
-        User user = getTestUser();
+        return createTestUser("Федор", "Петров", "Петрович");
+    }
+
+    protected User createTestUser(String firstName, String lastName, String middleName) {
+        User user = getTestUser(firstName, lastName, middleName);
         user = userRepository.save(user);
         return user;
     }
 
     protected Account createTestAccount(User user, Session session) {
-        Account account = getTestAccount(user);
+        Account account = getTestAccount(0d, user);
         return session.find(Account.class, session.save(account));
     }
 
     protected User createTestUser(Session session) {
-        User user = getTestUser();
+        User user = getTestUser("Федор", "Петров", "Петрович");
         return session.find(User.class, session.save(user));
     }
 
@@ -60,18 +68,23 @@ public class BaseTestSupport {
         }
     }
 
-    private User getTestUser() {
+    private User getTestUser(String firstName, String lastName, String middleName) {
         User user = new User();
-        user.setFirstName("Федор");
-        user.setLastName("Петров");
-        user.setMiddleName("Петрович");
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setMiddleName(middleName);
         return user;
     }
 
-    private Account getTestAccount(User user) {
+    private Account getTestAccount(Double balance, User user) {
         Account account = new Account();
         account.setUser(user);
-        account.setBalance(0.0);
+        account.setBalance(balance);
         return account;
+    }
+
+    protected Account updateAccountBalance(Account account, Double value) {
+        account.setBalance(value);
+        return accountRepository.save(account);
     }
 }

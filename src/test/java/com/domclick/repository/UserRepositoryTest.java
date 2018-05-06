@@ -57,4 +57,23 @@ public class UserRepositoryTest extends BaseTestSupport {
             tx.commit();
         }
     }
+
+    @Test
+    public void versionTest() {
+        User user = createTestUser();
+        Assert.assertEquals(0, (long) user.getVersion());
+        user = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        user.setMiddleName("Иванович");
+        user = userRepository.save(user);
+
+        Assert.assertEquals(1, (long) user.getVersion());
+
+        user = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        user.setMiddleName("Петрович");
+        user = userRepository.save(user);
+
+        Assert.assertEquals(2, (long) user.getVersion());
+
+        userRepository.delete(user);
+    }
 }
