@@ -1,17 +1,15 @@
 package com.domclick.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "BANK_USER")
-public class User implements Serializable {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-
-    @Column(name="FIRST_NAME", nullable = false)
+public class User extends BaseEntity {
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
     @Column(name = "LAST_NAME", nullable = false)
@@ -20,16 +18,9 @@ public class User implements Serializable {
     @Column(name = "MIDDLE_NAME", nullable = false)
     private String middleName;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Account> accounts;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;

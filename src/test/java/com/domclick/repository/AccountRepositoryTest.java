@@ -1,26 +1,21 @@
 package com.domclick.repository;
 
+import com.domclick.BaseTestSupport;
 import com.domclick.app.Application;
+import com.domclick.model.Account;
 import com.domclick.model.User;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-@DataJpaTest
-public class AccountRepositoryTest {
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-
+public class AccountRepositoryTest extends BaseTestSupport {
     private User user;
 
     @Before
@@ -29,24 +24,18 @@ public class AccountRepositoryTest {
                 () -> new IllegalStateException("Datasource do not initialize"));
     }
 
-//Todo
     @Test
-    public void createTest() {
+    public void crudTest() {
+        Account account = createTestAccount(user);
 
-    }
+        account = accountRepository.findById(account.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        account.setBalance(50000d);
+        account = accountRepository.save(account);
+        account = accountRepository.findById(account.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        Assert.assertEquals(account.getBalance(), 50000d, 0d);
 
-    @Test
-    public void deleteTest() {
-
-    }
-
-    @Test
-    public void updateTest() {
-
-    }
-
-    @Test
-    public void readTest() {
-
+        accountRepository.delete(account);
+        Optional<Account> accountOptional = accountRepository.findById(account.getId());
+        Assert.assertTrue(!accountOptional.isPresent());
     }
 }
