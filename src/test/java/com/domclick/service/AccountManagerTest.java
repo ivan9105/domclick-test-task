@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Random;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class AccountManagerTest extends BaseTestSupport {
@@ -110,9 +112,37 @@ public class AccountManagerTest extends BaseTestSupport {
         Assert.assertEquals(fromAccount.getBalance(), (10000d - (threadCount - optimisticCounter) * 100d), 0d);
         Assert.assertEquals(toAccount.getBalance(), (3000d + (threadCount - optimisticCounter) * 100d), 0d);
         System.out.println("Optimistic counter: " + optimisticCounter);
+        optimisticCounter = 0;
 
         userRepository.delete(fromUser);
         userRepository.delete(toUser);
+    }
+
+    @Test
+    public void badRequestExceptionTest() throws InterruptedException {
+        User user = createTestUser("Иван", "Долгорукий", "Петрович");
+        Account account = createTestAccount(10001d, user);
+        Long accountId = account.getId();
+        Random random = new Random();
+        int threadCount = 10;
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(() -> {
+                try {
+                    try {
+                        Thread.sleep(100 * random.nextInt(3));
+                    } catch (InterruptedException ignore) {
+                    }
+                    accountManager.withdraw(accountId, 5000d);
+                } catch (BadRequestException | ObjectOptimisticLockingFailureException ignore) {
+                }
+            }).start();
+        }
+
+        Thread.sleep(1000L);
+        account = accountRepository.findById(account.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
+        Assert.assertEquals(1, account.getBalance(), 0d);
+
+        userRepository.delete(user);
     }
 
     private boolean doTransfer(Account fromAccount, Account toAccount, Double value) {

@@ -65,7 +65,4 @@ public class AccountRESTController {
         }
         return dtoBuilder.buildAccountDto(accountOptional.get());
     }
-
-
-    //Todo Exception Handler
 }
