@@ -22,10 +22,10 @@ public interface AccountManager {
     void withdraw(Long accountId, Double value) throws BadRequestException;
 
     /**
-     * Put money on account
+     * Deposit money on account
      * If account has incorrect state throws bad request exception
      * @param accountId target account id
      * @param value money
      */
-    void put(Long accountId, Double value) throws BadRequestException;
+    void deposit(Long accountId, Double value) throws BadRequestException;
 }

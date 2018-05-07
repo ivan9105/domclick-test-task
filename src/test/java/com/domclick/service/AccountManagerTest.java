@@ -65,13 +65,13 @@ public class AccountManagerTest extends BaseTestSupport {
     }
 
     @Test
-    public void putTest() {
+    public void depositTest() {
         User user = createTestUser("Иван", "Долгорукий", "Петрович");
         Account account = createTestAccount(1000d, user);
-        Assert.assertTrue(doPut(account, 500d, 1500d));
-        Assert.assertTrue(doPut(account, 500d, 2000d));
-        Assert.assertFalse(doPut(account, -1000d, 2000d));
-        Assert.assertFalse(doPut(getFakeAccount(), 1000d, 2000d));
+        Assert.assertTrue(doDeposit(account, 500d, 1500d));
+        Assert.assertTrue(doDeposit(account, 500d, 2000d));
+        Assert.assertFalse(doDeposit(account, -1000d, 2000d));
+        Assert.assertFalse(doDeposit(getFakeAccount(), 1000d, 2000d));
         userRepository.delete(user);
     }
 
@@ -135,9 +135,9 @@ public class AccountManagerTest extends BaseTestSupport {
         return true;
     }
 
-    private boolean doPut(Account account, Double value, Double expected) {
+    private boolean doDeposit(Account account, Double value, Double expected) {
         try {
-            accountManager.put(account.getId(), value);
+            accountManager.deposit(account.getId(), value);
         } catch (BadRequestException bre) {
             return false;
         }

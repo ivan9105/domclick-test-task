@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "BANK_USER")
+@NamedEntityGraph(name = "User.accounts", attributeNodes = @NamedAttributeNode("accounts"))
 public class User extends BaseEntity {
     @NotNull(message = "Имя не может быть пустым и превышать 255 символов")
     @Size(min = 1, max = 255, message = "Имя не может быть пустым и превышать 255 символов")

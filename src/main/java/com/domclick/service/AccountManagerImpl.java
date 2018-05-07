@@ -45,7 +45,7 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public void put(Long accountId, Double value) throws BadRequestException {
+    public void deposit(Long accountId, Double value) throws BadRequestException {
         checkValue(value);
 
         Account account = reloadAccount(accountId);
