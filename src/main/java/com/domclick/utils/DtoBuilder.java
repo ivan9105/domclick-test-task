@@ -4,7 +4,9 @@ import com.domclick.dto.AccountDto;
 import com.domclick.dto.LinkDto;
 import com.domclick.dto.UserAccountsDto;
 import com.domclick.dto.UserDto;
+import com.domclick.dto.response.AccountResponse;
 import com.domclick.dto.response.UserResponse;
+import com.domclick.model.Account;
 import com.domclick.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -30,15 +32,29 @@ public class DtoBuilder {
         return response;
     }
 
-    //Todo add account dto build and operation lists
-    public UserAccountsDto buildUserAccounts(User user) {
+    public UserAccountsDto buildUserAccountsDto(User user) {
         UserAccountsDto res = new UserAccountsDto(user);
         res.getLinks().add(new LinkDto("self", "GET", serverUrl + "api/user/get/" + user.getId()));
         if (!CollectionUtils.isEmpty(user.getAccounts())) {
-            user.getAccounts().forEach(account -> res.getAccounts().add(new AccountDto(account)));
+            user.getAccounts().forEach(account -> res.getAccounts().add(buildAccountDto(account)));
         }
         return res;
     }
 
-    //Todo add methods change
+    public AccountResponse buildAccountResponse(List<Account> accounts) {
+        AccountResponse response = new AccountResponse();
+        if (!CollectionUtils.isEmpty(accounts)) {
+            accounts.forEach(account -> response.getAccounts().add(buildAccountDto(account)));
+        }
+        return response;
+    }
+
+    public AccountDto buildAccountDto(Account account) {
+        AccountDto res = new AccountDto(account);
+        res.getLinks().add(new LinkDto("self", "GET", serverUrl + "api/account/get/" + account.getId()));
+        res.getLinks().add(new LinkDto("deposit", "POST", serverUrl + "api/account/deposit"));
+        res.getLinks().add(new LinkDto("transfer", "POST", serverUrl + "api/account/transfer"));
+        res.getLinks().add(new LinkDto("withdraw", "POST", serverUrl + "api/account/withdraw"));
+        return res;
+    }
 }

@@ -2,6 +2,8 @@ package com.domclick.rest;
 
 import com.domclick.dto.UserAccountsDto;
 import com.domclick.dto.response.UserResponse;
+import com.domclick.exception.BadRequestException;
+import com.domclick.model.User;
 import com.domclick.repository.UserRepository;
 import com.domclick.utils.DtoBuilder;
 import com.google.common.collect.Lists;
@@ -26,7 +28,11 @@ public class UserRESTController {
     }
 
     @GetMapping("/get/{id}")
-    public UserAccountsDto getUser(@PathVariable(name = "id") Long id) {
-        return dtoBuilder.buildUserAccounts(userRepository.findUserAccountsById(id));
+    public UserAccountsDto getUser(@PathVariable(name = "id") Long id) throws BadRequestException {
+        User user = userRepository.findUserAccountsById(id);
+        if (user == null) {
+            throw new BadRequestException(String.format("User with id '%s' not found", id));
+        }
+        return dtoBuilder.buildUserAccountsDto(user);
     }
 }
