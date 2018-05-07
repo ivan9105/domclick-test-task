@@ -1,14 +1,22 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Главная страница</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Страница администрирования</h1>
-<ul>
-    <li><a href="/users">Пользователи</a></li>
-    <li><a href="/accounts">Счета</a></li>
-</ul>
+<div class="container">
+    <h1>Главная страница</h1>
+    <ul>
+        <li><a href="/users">Пользователи</a></li>
+        <li><a href="/accounts">Счета</a></li>
+    </ul>
+</div>
 </body>
 </html>

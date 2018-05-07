@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Счета</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Счета</h1>
+
+    <p>
+        <a href="/accounts/edit" th:href="@{/accounts/edit}">Создать</a>
+        <a href="/" th:href="@{/}" style="float: right;">Назад</a>
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Баланс</th>
+            <th>ФИО Пользователя</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}">1</td>
+            <td th:text="${account.balance}">0d</td>
+            <td th:text="${account.userStr}">ФИО Пользователя</td>
+            <td>
+                <a href="/accounts/edit/1" th:href="@{/accounts/edit/__${account.id}__}">Редактировать</a>
+                <a href="/accounts/delete/1" th:href="@{/accounts/delete/__${account.id}__}" style="margin-left: 10px">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

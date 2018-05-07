@@ -18,7 +18,8 @@
     <h1>Пользователи</h1>
 
     <p>
-        <a href="/usersEdit" th:href="@{/usersEdit}">Создать</a>
+        <a href="/users/edit" th:href="@{/users/edit}">Создать</a>
+        <a href="/" th:href="@{/}" style="float: right;">Назад</a>
     </p>
 
     <table class="table">
@@ -28,7 +29,7 @@
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Отчество</th>
-            <th>Actions</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -38,8 +39,8 @@
             <td th:text="${user.lastName}">Фамилия</td>
             <td th:text="${user.middleName}">Отчество</td>
             <td>
-                <a href="/usersEdit/1" th:href="@{/usersEdit/__${user.id}__}">Редактировать</a>
-                <a href="/usersDelete/1" th:href="@{/usersDelete/__${user.id}__}">Удалить</a>
+                <a href="/users/edit/1" th:href="@{/users/edit/__${user.id}__}">Редактировать</a>
+                <a href="/users/delete/1" th:href="@{/users/delete/__${user.id}__}" style="margin-left: 10px">Удалить</a>
             </td>
         </tr>
         </tbody>
