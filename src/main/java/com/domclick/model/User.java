@@ -62,4 +62,9 @@ public class User extends BaseEntity {
     public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s", lastName, firstName, middleName);
+    }
 }
