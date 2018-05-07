@@ -1,6 +1,10 @@
 package com.domclick.utils;
 
-import com.domclick.dto.*;
+import com.domclick.dto.AccountDto;
+import com.domclick.dto.LinkDto;
+import com.domclick.dto.UserAccountsDto;
+import com.domclick.dto.UserDto;
+import com.domclick.dto.response.UserResponse;
 import com.domclick.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -19,7 +23,7 @@ public class DtoBuilder {
         UserResponse response = new UserResponse();
         users.forEach(user -> {
             UserDto userDto = new UserDto(user);
-            userDto.getLinks().add(new LinkDto("self", serverUrl + "user/get/" + user.getId()));
+            userDto.getLinks().add(new LinkDto("self", "GET", serverUrl + "api/user/get/" + user.getId()));
             response.getUsers().add(userDto);
         });
 
@@ -29,10 +33,12 @@ public class DtoBuilder {
     //Todo add account dto build and operation lists
     public UserAccountsDto buildUserAccounts(User user) {
         UserAccountsDto res = new UserAccountsDto(user);
-        res.getLinks().add(new LinkDto("self", serverUrl + "user/get/" + user.getId()));
+        res.getLinks().add(new LinkDto("self", "GET", serverUrl + "api/user/get/" + user.getId()));
         if (!CollectionUtils.isEmpty(user.getAccounts())) {
             user.getAccounts().forEach(account -> res.getAccounts().add(new AccountDto(account)));
         }
         return res;
     }
+
+    //Todo add methods change
 }

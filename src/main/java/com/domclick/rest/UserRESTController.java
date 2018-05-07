@@ -1,7 +1,7 @@
 package com.domclick.rest;
 
 import com.domclick.dto.UserAccountsDto;
-import com.domclick.dto.UserResponse;
+import com.domclick.dto.response.UserResponse;
 import com.domclick.repository.UserRepository;
 import com.domclick.utils.DtoBuilder;
 import com.google.common.collect.Lists;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserRESTController {
     @Autowired
     private UserRepository userRepository;

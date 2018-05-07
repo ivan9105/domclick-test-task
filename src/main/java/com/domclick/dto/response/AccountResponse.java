@@ -1,4 +1,6 @@
-package com.domclick.dto;
+package com.domclick.dto.response;
+
+import com.domclick.dto.AccountDto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
