@@ -9,7 +9,7 @@ RESTful api:
 * Снять деньги со счёта
 
 ## Выбранный стек технологий ##
-Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA
+Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thymeleaf
 
 ## Выполнено ##
 * Добавлены initial sql скрипты
@@ -18,3 +18,6 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA
 * Добавлены интеграционные тесты на основную логику с операциями со счетами пользователя, а также тесты для проверки правильности настройки JPA
 * Основное RESTful api + дополнительно api для получения метаинформации по данным
 * Для сборки использовать gradle build, исполняемый jar файл будет в projectDir\build\libs, для запуска используем java -jar youFile.jar
+
+## Инструкция для разработчиков ##
+Для создания проекта выполняем из projectDir gradle idea, открываем файл проекта через IDE Idea
