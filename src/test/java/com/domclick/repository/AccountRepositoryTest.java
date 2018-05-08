@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -29,10 +30,10 @@ public class AccountRepositoryTest extends BaseTestSupport {
         Account account = createTestAccount(user);
 
         account = accountRepository.findById(account.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
-        account.setBalance(50000d);
+        account.setBalance(new BigDecimal(50000d));
         account = accountRepository.save(account);
         account = accountRepository.findById(account.getId()).orElseThrow(() -> new RuntimeException("It's impossible"));
-        Assert.assertEquals(account.getBalance(), 50000d, 0d);
+        Assert.assertEquals(account.getBalance(), newBigDecimal(50000d));
 
         accountRepository.delete(account);
         Optional<Account> accountOptional = accountRepository.findById(account.getId());

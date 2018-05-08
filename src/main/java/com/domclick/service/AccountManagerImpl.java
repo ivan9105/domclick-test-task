@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 
 @Transactional(rollbackFor = RollbackException.class)
 @Service
@@ -17,7 +18,7 @@ public class AccountManagerImpl implements AccountManager {
     private EntityManager em;
 
     @Override
-    public void transfer(Long fromAccountId, Long toAccountId, Double value) throws BadRequestException {
+    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal value) throws BadRequestException {
         checkValue(value);
 
         if (fromAccountId.equals(toAccountId)) {
@@ -29,27 +30,27 @@ public class AccountManagerImpl implements AccountManager {
 
         checkWithDrawPossibility(value, fromAccount);
 
-        fromAccount.setBalance(fromAccount.getBalance() - value);
-        toAccount.setBalance(toAccount.getBalance() + value);
+        fromAccount.setBalance(fromAccount.getBalance().subtract(value));
+        toAccount.setBalance(toAccount.getBalance().add(value));
     }
 
     @Override
-    public void withdraw(Long accountId, Double value) throws BadRequestException {
+    public void withdraw(Long accountId, BigDecimal value) throws BadRequestException {
         checkValue(value);
 
         Account account = reloadAccount(accountId);
 
         checkWithDrawPossibility(value, account);
 
-        account.setBalance(account.getBalance() - value);
+        account.setBalance(account.getBalance().subtract(value));
     }
 
     @Override
-    public void deposit(Long accountId, Double value) throws BadRequestException {
+    public void deposit(Long accountId, BigDecimal value) throws BadRequestException {
         checkValue(value);
 
         Account account = reloadAccount(accountId);
-        account.setBalance(account.getBalance() + value);
+        account.setBalance(account.getBalance().add(value));
     }
 
     private Account reloadAccount(Long accountId) throws BadRequestException {
@@ -60,14 +61,14 @@ public class AccountManagerImpl implements AccountManager {
         return fromAccount;
     }
 
-    private void checkValue(Double value) throws BadRequestException {
-        if (value <= 0) {
+    private void checkValue(BigDecimal value) throws BadRequestException {
+        if (value.doubleValue() <= 0) {
             throw new BadRequestException("Value must be over than 0");
         }
     }
 
-    private void checkWithDrawPossibility(Double value, Account account) throws BadRequestException {
-        if (account.getBalance() - value < 0) {
+    private void checkWithDrawPossibility(BigDecimal value, Account account) throws BadRequestException {
+        if (account.getBalance().subtract(value).doubleValue() < 0) {
             throw new BadRequestException(String.format("On account with id '%s' not enough money", value));
         }
     }

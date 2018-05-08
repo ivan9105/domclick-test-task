@@ -3,6 +3,7 @@ package com.domclick.dto.request;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class AccountWithdrawRequest implements Serializable {
     @NotNull(message = "Field 'accountId' is required")
@@ -10,7 +11,7 @@ public class AccountWithdrawRequest implements Serializable {
     private Long accountId;
     @NotNull(message = "Field 'value' is required")
     @PositiveOrZero(message = "Field 'value' value must be positive")
-    private Double value;
+    private BigDecimal value;
 
     public Long getAccountId() {
         return accountId;
@@ -20,11 +21,11 @@ public class AccountWithdrawRequest implements Serializable {
         this.accountId = accountId;
     }
 
-    public Double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 }

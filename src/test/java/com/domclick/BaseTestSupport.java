@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+
 
 public class BaseTestSupport {
     @Autowired
@@ -25,10 +27,10 @@ public class BaseTestSupport {
     private SessionFactory sessionFactory;
 
     protected Account createTestAccount(User user) {
-        return createTestAccount(0d, user);
+        return createTestAccount(newBigDecimal(0d), user);
     }
 
-    protected Account createTestAccount(Double balance, User user) {
+    protected Account createTestAccount(BigDecimal balance, User user) {
         Account account = getTestAccount(balance, user);
         account = accountRepository.save(account);
         return account;
@@ -45,7 +47,7 @@ public class BaseTestSupport {
     }
 
     protected Account createTestAccount(User user, Session session) {
-        Account account = getTestAccount(0d, user);
+        Account account = getTestAccount(newBigDecimal(0d), user);
         return session.find(Account.class, session.save(account));
     }
 
@@ -76,15 +78,19 @@ public class BaseTestSupport {
         return user;
     }
 
-    private Account getTestAccount(Double balance, User user) {
+    private Account getTestAccount(BigDecimal balance, User user) {
         Account account = new Account();
         account.setUser(user);
         account.setBalance(balance);
         return account;
     }
 
-    protected Account updateAccountBalance(Account account, Double value) {
+    protected Account updateAccountBalance(Account account, BigDecimal value) {
         account.setBalance(value);
         return accountRepository.save(account);
+    }
+
+    protected BigDecimal newBigDecimal(Double value) {
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 }

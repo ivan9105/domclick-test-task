@@ -2,6 +2,8 @@ package com.domclick.service;
 
 import com.domclick.exception.BadRequestException;
 
+import java.math.BigDecimal;
+
 public interface AccountManager {
     /**
      * Transfer money from one account to another account
@@ -11,7 +13,7 @@ public interface AccountManager {
      * @param value money
      * @throws BadRequestException
      */
-    void transfer(Long fromAccountId, Long toAccountId, Double value) throws BadRequestException;
+    void transfer(Long fromAccountId, Long toAccountId, BigDecimal value) throws BadRequestException;
 
     /**
      * Withdraw money from account
@@ -19,7 +21,7 @@ public interface AccountManager {
      * @param accountId target account id
      * @param value money
      */
-    void withdraw(Long accountId, Double value) throws BadRequestException;
+    void withdraw(Long accountId, BigDecimal value) throws BadRequestException;
 
     /**
      * Deposit money on account
@@ -27,5 +29,5 @@ public interface AccountManager {
      * @param accountId target account id
      * @param value money
      */
-    void deposit(Long accountId, Double value) throws BadRequestException;
+    void deposit(Long accountId, BigDecimal value) throws BadRequestException;
 }

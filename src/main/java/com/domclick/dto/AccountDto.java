@@ -3,12 +3,13 @@ package com.domclick.dto;
 import com.domclick.model.Account;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDto implements Serializable {
     private Long id;
-    private Double balance;
+    private BigDecimal balance;
     private List<LinkDto> links = new ArrayList<>();
 
     public AccountDto(Account account) {
@@ -24,11 +25,11 @@ public class AccountDto implements Serializable {
         this.id = id;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

@@ -3,14 +3,15 @@ package com.domclick.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "BANK_ACCOUNT")
 public class Account extends BaseEntity {
     @NotNull(message = "Баланс не может быть пустым")
     @PositiveOrZero(message = "Баланс не может быть отрицательным")
-    @Column(name = "BALANCE", nullable = false)
-    private Double balance;
+    @Column(name = "BALANCE", nullable = false, precision = 19, scale = 2)
+    private BigDecimal balance;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
@@ -22,11 +23,11 @@ public class Account extends BaseEntity {
     @Transient
     private String userStr;
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
