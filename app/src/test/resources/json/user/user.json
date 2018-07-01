@@ -1,0 +1,67 @@
+{
+  "id": 0,
+  "firstName": "Иван",
+  "lastName": "Мельников",
+  "middleName": "Игоревич",
+  "links": [
+    {
+      "rel": "self",
+      "type": "GET",
+      "href": "http://127.0.0.1:8080/api/user/get/0"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "balance": 100000.3,
+      "links": [
+        {
+          "rel": "self",
+          "type": "GET",
+          "href": "http://127.0.0.1:8080/api/account/get/1"
+        },
+        {
+          "rel": "deposit",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/deposit"
+        },
+        {
+          "rel": "transfer",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/transfer"
+        },
+        {
+          "rel": "withdraw",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/withdraw"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "balance": 15.5,
+      "links": [
+        {
+          "rel": "self",
+          "type": "GET",
+          "href": "http://127.0.0.1:8080/api/account/get/0"
+        },
+        {
+          "rel": "deposit",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/deposit"
+        },
+        {
+          "rel": "transfer",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/transfer"
+        },
+        {
+          "rel": "withdraw",
+          "type": "POST",
+          "href": "http://127.0.0.1:8080/api/account/withdraw"
+        }
+      ]
+    }
+  ]
+}

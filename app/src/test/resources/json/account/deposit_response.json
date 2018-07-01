@@ -1,0 +1,26 @@
+{
+  "id": 0,
+  "balance": 25.5,
+  "links": [
+    {
+      "rel": "self",
+      "type": "GET",
+      "href": "http://127.0.0.1:8080/api/account/get/0"
+    },
+    {
+      "rel": "deposit",
+      "type": "POST",
+      "href": "http://127.0.0.1:8080/api/account/deposit"
+    },
+    {
+      "rel": "transfer",
+      "type": "POST",
+      "href": "http://127.0.0.1:8080/api/account/transfer"
+    },
+    {
+      "rel": "withdraw",
+      "type": "POST",
+      "href": "http://127.0.0.1:8080/api/account/withdraw"
+    }
+  ]
+}

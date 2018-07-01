@@ -51,6 +51,8 @@ public class AccountManagerTest extends BaseTestSupport {
 
         userRepository.delete(fromUser);
         userRepository.delete(toUser);
+        accountRepository.delete(fromAccount);
+        accountRepository.delete(toAccount);
     }
 
     @Test
@@ -65,6 +67,7 @@ public class AccountManagerTest extends BaseTestSupport {
         Assert.assertFalse(doWithdraw(getFakeAccount(), newBigDecimal(10d), newBigDecimal(50d)));
         Assert.assertTrue(doWithdraw(account, newBigDecimal(50d), newBigDecimal(0d)));
         userRepository.delete(user);
+        accountRepository.delete(account);
     }
 
     @Test
@@ -76,6 +79,7 @@ public class AccountManagerTest extends BaseTestSupport {
         Assert.assertFalse(doDeposit(account, newBigDecimal(-1000d), newBigDecimal(2000d)));
         Assert.assertFalse(doDeposit(getFakeAccount(), newBigDecimal(1000d), newBigDecimal(2000d)));
         userRepository.delete(user);
+        accountRepository.delete(account);
     }
 
     @Test
@@ -117,6 +121,8 @@ public class AccountManagerTest extends BaseTestSupport {
 
         userRepository.delete(fromUser);
         userRepository.delete(toUser);
+        accountRepository.delete(fromAccount);
+        accountRepository.delete(toAccount);
     }
 
     @Test
@@ -144,6 +150,7 @@ public class AccountManagerTest extends BaseTestSupport {
         Assert.assertEquals(newBigDecimal(1d), account.getBalance());
 
         userRepository.delete(user);
+        accountRepository.delete(account);
     }
 
     @Test
@@ -155,6 +162,7 @@ public class AccountManagerTest extends BaseTestSupport {
         Assert.assertTrue(doWithdraw(account, newBigDecimal(79.77d), newBigDecimal(9962.55d)));
         Assert.assertTrue(doWithdraw(account, newBigDecimal(93.59d), newBigDecimal(9868.96d)));
         userRepository.delete(user);
+        accountRepository.delete(account);
     }
 
     private boolean doTransfer(Account fromAccount, Account toAccount, BigDecimal value) {
