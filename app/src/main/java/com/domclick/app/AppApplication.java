@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("com.domclick.repository")
 @ComponentScan(value = "com.domclick")
 @EnableTransactionManagement
-public class Application {
+public class AppApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class);
+        SpringApplication.run(AppApplication.class);
     }
 
     @Bean

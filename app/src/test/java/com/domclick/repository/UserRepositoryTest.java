@@ -1,7 +1,7 @@
 package com.domclick.repository;
 
 import com.domclick.BaseTestSupport;
-import com.domclick.app.Application;
+import com.domclick.app.AppApplication;
 import com.domclick.model.Account;
 import com.domclick.model.User;
 import org.hibernate.Session;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = AppApplication.class)
 public class UserRepositoryTest extends BaseTestSupport {
 
     @Test

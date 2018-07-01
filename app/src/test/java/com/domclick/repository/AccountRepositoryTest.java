@@ -1,7 +1,7 @@
 package com.domclick.repository;
 
 import com.domclick.BaseTestSupport;
-import com.domclick.app.Application;
+import com.domclick.app.AppApplication;
 import com.domclick.model.Account;
 import com.domclick.model.User;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = AppApplication.class)
 public class AccountRepositoryTest extends BaseTestSupport {
     private User user;
 

@@ -19,6 +19,5 @@ public class FlywayConfig {
         flyway.setSqlMigrationPrefix("V");
         flyway.migrate();
         return  flyway;
-
     }
 }

@@ -1,7 +1,7 @@
 package com.domclick.service;
 
 import com.domclick.BaseTestSupport;
-import com.domclick.app.Application;
+import com.domclick.app.AppApplication;
 import com.domclick.exception.BadRequestException;
 import com.domclick.model.Account;
 import com.domclick.model.User;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = AppApplication.class)
 public class AccountManagerTest extends BaseTestSupport {
     @Autowired
     private AccountManager accountManager;
