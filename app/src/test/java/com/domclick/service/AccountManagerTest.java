@@ -2,9 +2,6 @@ package com.domclick.service;
 
 import com.domclick.BaseTestSupport;
 import com.domclick.app.AppApplication;
-import com.domclick.exception.BadRequestException;
-import com.domclick.model.Account;
-import com.domclick.model.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

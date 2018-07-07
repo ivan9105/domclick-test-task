@@ -1,11 +1,5 @@
 package com.domclick;
 
-import com.domclick.model.Account;
-import com.domclick.model.BaseEntity;
-import com.domclick.model.User;
-import com.domclick.repository.AccountRepository;
-import com.domclick.repository.UserRepository;
-import com.domclick.utils.HibernateSessionUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Assert;

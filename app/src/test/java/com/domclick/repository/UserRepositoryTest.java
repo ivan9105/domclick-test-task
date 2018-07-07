@@ -2,8 +2,6 @@ package com.domclick.repository;
 
 import com.domclick.BaseTestSupport;
 import com.domclick.app.AppApplication;
-import com.domclick.model.Account;
-import com.domclick.model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
