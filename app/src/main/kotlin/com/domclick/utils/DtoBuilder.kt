@@ -19,6 +19,7 @@ class DtoBuilder {
     @Value("\${server.url}")
     private lateinit var serverUrl: String
 
+    //Todo test
     fun buildUserResponse(users: List<User>): UserResponse {
         val response = UserResponse()
         users.forEach { user ->
@@ -50,9 +51,9 @@ class DtoBuilder {
     fun buildAccountDto(account: Account): AccountDto {
         val res = AccountDto(account)
         res.links.add(LinkDto("self", "GET", serverUrl + "api/account/get/" + account.id))
-        res.links.add(LinkDto("deposit", "POST", serverUrl!! + "api/account/deposit"))
-        res.links.add(LinkDto("transfer", "POST", serverUrl!! + "api/account/transfer"))
-        res.links.add(LinkDto("withdraw", "POST", serverUrl!! + "api/account/withdraw"))
+        res.links.add(LinkDto("deposit", "POST", serverUrl + "api/account/deposit"))
+        res.links.add(LinkDto("transfer", "POST", serverUrl + "api/account/transfer"))
+        res.links.add(LinkDto("withdraw", "POST", serverUrl + "api/account/withdraw"))
         return res
     }
 }

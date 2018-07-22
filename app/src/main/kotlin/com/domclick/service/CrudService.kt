@@ -14,4 +14,5 @@ interface CrudService<T, ID> {
     fun delete(entity: T)
     fun deleteAll(entities: Iterable<T>)
     fun deleteAll()
+    fun upsert(entity: T)
 }

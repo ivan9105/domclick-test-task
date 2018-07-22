@@ -31,12 +31,7 @@ class UserController(private val userService: UserService) {
         if (bindingResult.hasErrors()) {
             return "user/edit"
         }
-
-        val reload = if (user.isNew()) User() else findUserById(user.id)
-        reload.middleName = user.middleName
-        reload.lastName = user.lastName
-        reload.firstName = user.firstName
-        userService.save(reload)
+        userService.upsert(user)
         return "redirect:/users"
     }
 

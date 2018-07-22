@@ -3,6 +3,7 @@ package com.domclick.service
 import com.domclick.exception.BadRequestException
 import com.domclick.model.Account
 import java.math.BigDecimal
+import java.util.*
 
 interface AccountService : CrudService<Account, Long> {
     /**
@@ -33,4 +34,6 @@ interface AccountService : CrudService<Account, Long> {
      */
     @Throws(BadRequestException::class)
     fun deposit(accountId: Long, value: BigDecimal)
+
+    fun findAccountByIdWithLock(accountId: Long) : Optional<Account>
 }

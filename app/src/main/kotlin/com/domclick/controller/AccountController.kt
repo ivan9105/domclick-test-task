@@ -38,16 +38,8 @@ class AccountController(private val userService: UserService,
             return "account/edit"
         }
 
-        val reload = if (account.isNew()) Account() else findAccountById(account.id!!)
-        reload.balance = account.balance
-        reload.user = userService.findById(account.userId.toLong()).orElseThrow {
-            RuntimeException(
-                    format("Can not found account by id '%s'", account.userId))
-        }
+        accountService.upsert(account)
 
-        reload.updateUserId()
-
-        accountService.save(reload)
         model.addAttribute("accounts", accountService.findAll())
         return "account/list"
     }
