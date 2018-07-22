@@ -1,26 +1,22 @@
 package com.domclick.controller
 
 import com.domclick.model.User
-import com.domclick.repository.UserRepository
-import lombok.RequiredArgsConstructor
-import org.springframework.beans.factory.annotation.Autowired
+import com.domclick.service.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-
+import java.lang.String.format
 import javax.validation.Valid
 
-import java.lang.String.format
-
 @Controller
-class UserController(private var userRepository: UserRepository) {
+class UserController(private val userService: UserService) {
 
     @GetMapping(value = ["/users"])
     fun usersList(model: Model): String {
-        model.addAttribute("users", userRepository.findAll())
+        model.addAttribute("users", userService.findAll())
         return "user/list"
     }
 
@@ -40,17 +36,17 @@ class UserController(private var userRepository: UserRepository) {
         reload.middleName = user.middleName
         reload.lastName = user.lastName
         reload.firstName = user.firstName
-        userRepository.save(reload)
+        userService.save(reload)
         return "redirect:/users"
     }
 
     @GetMapping(value = ["/users/delete/{id}"])
     fun userDelete(model: Model, @PathVariable(name = "id") id: Long?): String {
-        userRepository.delete(findUserById(id))
+        userService.delete(findUserById(id))
         return "redirect:/users"
     }
 
-    private fun findUserById(id: Long?) = userRepository.findById(id!!).orElseThrow {
+    private fun findUserById(id: Long?) = userService.findById(id!!).orElseThrow {
             RuntimeException(
                     format("Can not found user by id '%s'", id))
         }

@@ -1,9 +1,10 @@
 package com.domclick.service
 
 import com.domclick.exception.BadRequestException
+import com.domclick.model.Account
 import java.math.BigDecimal
 
-interface AccountManager {
+interface AccountService : CrudService<Account, Long> {
     /**
      * Transfer money from one account to another account
      * If account has incorrect state throws bad request exception

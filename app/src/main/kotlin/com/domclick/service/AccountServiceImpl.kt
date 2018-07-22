@@ -4,14 +4,15 @@ import com.domclick.exception.BadRequestException
 import com.domclick.exception.RollbackException
 import com.domclick.model.Account
 import com.domclick.repository.AccountRepository
-import lombok.RequiredArgsConstructor
+import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 
 @Transactional(rollbackFor = [(RollbackException::class)])
 @Service
-class AccountManagerImpl(private val accountRepository: AccountRepository) : AccountManager {
+class AccountServiceImpl(private val accountRepository: AccountRepository) : CrudServiceImpl<Account, Long>(), AccountService {
+    override fun getRepository(): CrudRepository<Account, Long> = accountRepository
 
     @Throws(BadRequestException::class)
     override fun transfer(fromAccountId: Long, toAccountId: Long, value: BigDecimal) {

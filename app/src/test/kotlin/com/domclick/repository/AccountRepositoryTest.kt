@@ -2,19 +2,14 @@ package com.domclick.repository
 
 import com.domclick.BaseTestSupport
 import com.domclick.app.AppApplication
-import com.domclick.model.User
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
-import java.math.BigDecimal
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [(AppApplication::class)])
 class AccountRepositoryTest : BaseTestSupport() {
-    private lateinit var user: User
+    /*private lateinit var user: User
 
     @Before
     fun init() {
@@ -34,5 +29,5 @@ class AccountRepositoryTest : BaseTestSupport() {
         accountRepository.delete(account)
         val accountOptional = accountRepository.findById(account.id)
         Assert.assertTrue(!accountOptional.isPresent())
-    }
+    }*/
 }

@@ -6,25 +6,20 @@ import com.domclick.dto.request.AccountTransferRequest
 import com.domclick.dto.request.AccountWithdrawRequest
 import com.domclick.dto.response.AccountResponse
 import com.domclick.exception.BadRequestException
-import com.domclick.repository.AccountRepository
-import com.domclick.service.AccountManager
+import com.domclick.service.AccountService
 import com.domclick.utils.DtoBuilder
-import lombok.RequiredArgsConstructor
 import org.assertj.core.util.Lists
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/account")
-class AccountRESTController(private val accountRepository: AccountRepository,
-                            private val dtoBuilder: DtoBuilder,
-                            private val accountManager: AccountManager) {
+class AccountRESTController(private val dtoBuilder: DtoBuilder,
+                            private val accountService: AccountService) {
     @GetMapping("/list")
     fun accountList(): AccountResponse {
-        return dtoBuilder.buildAccountResponse(Lists.newArrayList(accountRepository.findAll()))
+        return dtoBuilder.buildAccountResponse(Lists.newArrayList(accountService.findAll()))
     }
 
     @GetMapping("/get/{id}")
@@ -34,27 +29,27 @@ class AccountRESTController(private val accountRepository: AccountRepository,
     @PostMapping("/transfer")
     @Throws(BadRequestException::class)
     fun doTransfer(@Valid @RequestBody request: AccountTransferRequest): ResponseEntity<AccountDto> {
-        accountManager.transfer(request.fromAccountId, request.toAccountId, request.value)
+        accountService.transfer(request.fromAccountId, request.toAccountId, request.value)
         return ResponseEntity.ok<AccountDto>(this.doGetAccount(request.fromAccountId))
     }
 
     @PostMapping("/withdraw")
     @Throws(BadRequestException::class)
     fun dotWithdraw(@Valid @RequestBody request: AccountWithdrawRequest): ResponseEntity<AccountDto> {
-        accountManager.withdraw(request.accountId, request.value)
+        accountService.withdraw(request.accountId, request.value)
         return ResponseEntity.ok<AccountDto>(doGetAccount(request.accountId))
     }
 
     @PostMapping("/deposit")
     @Throws(BadRequestException::class)
     fun doDeposit(@Valid @RequestBody request: AccountDepositRequest): ResponseEntity<AccountDto> {
-        accountManager.deposit(request.accountId, request.value)
+        accountService.deposit(request.accountId, request.value)
         return ResponseEntity.ok<AccountDto>(doGetAccount(request.accountId))
     }
 
     @Throws(BadRequestException::class)
     private fun doGetAccount(@PathVariable(name = "id") id: Long): AccountDto {
-        val accountOptional = accountRepository.findById(id)
+        val accountOptional = accountService.findById(id)
         if (!accountOptional.isPresent) {
             throw BadRequestException(String.format("Account with id '%s' not found", id))
         }

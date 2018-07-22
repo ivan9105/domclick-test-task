@@ -1,21 +1,11 @@
 package com.domclick
 
-import com.domclick.model.Account
-import com.domclick.model.BaseEntity
-import com.domclick.model.User
-import com.domclick.repository.AccountRepository
-import com.domclick.repository.UserRepository
-import com.domclick.utils.HibernateSessionUtils
-import org.hibernate.Session
-import org.hibernate.SessionFactory
-import org.junit.Assert
-import org.springframework.beans.factory.annotation.Autowired
-
-import java.math.BigDecimal
-
 
 open class BaseTestSupport {
-    @Autowired
+    //Todo profiles
+    //Todo user mock for logic
+    //Todo god object
+    /*@Autowired
     protected lateinit var accountRepository: AccountRepository
 
     @Autowired
@@ -89,5 +79,5 @@ open class BaseTestSupport {
 
     protected fun newBigDecimal(value: Double): BigDecimal {
         return BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN)
-    }
+    }*/
 }
