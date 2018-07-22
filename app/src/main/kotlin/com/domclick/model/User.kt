@@ -1,5 +1,7 @@
 package com.domclick.model
 
+import lombok.Builder
+import lombok.NoArgsConstructor
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 
@@ -8,6 +10,8 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 import java.util.HashSet
 
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "BANK_USER")
 @NamedEntityGraph(name = "User.accounts", attributeNodes = [(NamedAttributeNode("accounts"))])
@@ -31,7 +35,5 @@ class User : BaseEntity() {
     @OnDelete(action = OnDeleteAction.CASCADE)
     var accounts: Set<Account> = HashSet()
 
-    override fun toString(): String {
-        return String.format("%s %s %s", lastName, firstName, middleName)
-    }
+    override fun toString() = String.format("%s %s %s", lastName, firstName, middleName)
 }

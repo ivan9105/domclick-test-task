@@ -9,6 +9,7 @@ import com.domclick.exception.BadRequestException
 import com.domclick.repository.AccountRepository
 import com.domclick.service.AccountManager
 import com.domclick.utils.DtoBuilder
+import lombok.RequiredArgsConstructor
 import org.assertj.core.util.Lists
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -18,16 +19,9 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/account")
-class AccountRESTController {
-    @Autowired
-    private lateinit var accountRepository: AccountRepository
-
-    @Autowired
-    private lateinit var dtoBuilder: DtoBuilder
-
-    @Autowired
-    private lateinit var accountManager: AccountManager
-
+class AccountRESTController(private val accountRepository: AccountRepository,
+                            private val dtoBuilder: DtoBuilder,
+                            private val accountManager: AccountManager) {
     @GetMapping("/list")
     fun accountList(): AccountResponse {
         return dtoBuilder.buildAccountResponse(Lists.newArrayList(accountRepository.findAll()))
@@ -35,9 +29,7 @@ class AccountRESTController {
 
     @GetMapping("/get/{id}")
     @Throws(BadRequestException::class)
-    fun getAccount(@PathVariable(name = "id") id: Long?): AccountDto {
-        return doGetAccount(id!!)
-    }
+    fun getAccount(@PathVariable(name = "id") id: Long?) = doGetAccount(id!!)
 
     @PostMapping("/transfer")
     @Throws(BadRequestException::class)
@@ -63,7 +55,7 @@ class AccountRESTController {
     @Throws(BadRequestException::class)
     private fun doGetAccount(@PathVariable(name = "id") id: Long): AccountDto {
         val accountOptional = accountRepository.findById(id)
-        if (!accountOptional.isPresent()) {
+        if (!accountOptional.isPresent) {
             throw BadRequestException(String.format("Account with id '%s' not found", id))
         }
         return dtoBuilder.buildAccountDto(accountOptional.get())

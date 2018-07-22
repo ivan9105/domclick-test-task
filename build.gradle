@@ -11,10 +11,15 @@ subprojects {
     repositories {
         mavenCentral()
         maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+        maven { url "https://mvnrepository.com/artifact/org.projectlombok/lombok" }
     }
 
     apply plugin: 'java'
     apply plugin: 'idea'
+
+    dependencies {
+        compile group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+    }
 }
 
 

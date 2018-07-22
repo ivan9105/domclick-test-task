@@ -14,23 +14,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @EnableSwagger2
 class SwaggerConfig : WebMvcConfigurationSupport() {
     @Bean
-    fun api(): Docket {
-        return Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(regex("/api.*"))
-                .build()
-    }
+    fun api() = Docket(DocumentationType.SWAGGER_2)
+            .select()
+            .apis(RequestHandlerSelectors.any())
+            .paths(regex("/api.*"))
+            .build()!!
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/")
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/")
-
-        registry.addResourceHandler("**")
-                .addResourceLocations("classpath:/static/")
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/")
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/")
+        registry.addResourceHandler("**").addResourceLocations("classpath:/static/")
     }
-
 }

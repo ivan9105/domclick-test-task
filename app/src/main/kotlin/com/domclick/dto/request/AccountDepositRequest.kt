@@ -1,10 +1,12 @@
 package com.domclick.dto.request
 
+import lombok.Builder
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
 import java.io.Serializable
 import java.math.BigDecimal
 
+@Builder
 class AccountDepositRequest : Serializable {
     @NotNull(message = "Field 'accountId' is required")
     @PositiveOrZero(message = "Field 'accountId' value must be positive")

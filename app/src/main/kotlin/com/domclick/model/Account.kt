@@ -1,11 +1,15 @@
 package com.domclick.model
 
+import lombok.Builder
+import lombok.NoArgsConstructor
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
 import java.math.BigDecimal
 import kotlin.jvm.Transient
 
+@Builder
+@NoArgsConstructor
 @Entity
 @Table(name = "BANK_ACCOUNT")
 class Account : BaseEntity() {
@@ -19,13 +23,13 @@ class Account : BaseEntity() {
     var user: User? = null
 
     @Transient
-    lateinit var userId: String
+    var userId: String = ""
 
     fun getUserStr(): String {
         return user.toString()
     }
 
     fun updateUserId() {
-        this.userId = if (user != null)  user!!.id.toString() else ""
+        this.userId = user!!.id.toString()
     }
 }

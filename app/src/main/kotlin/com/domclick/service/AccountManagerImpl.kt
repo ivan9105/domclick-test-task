@@ -3,22 +3,18 @@ package com.domclick.service
 import com.domclick.exception.BadRequestException
 import com.domclick.exception.RollbackException
 import com.domclick.model.Account
+import com.domclick.repository.AccountRepository
+import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-
-import javax.persistence.EntityManager
-import javax.persistence.LockModeType
-import javax.persistence.PersistenceContext
 import java.math.BigDecimal
 
 @Transactional(rollbackFor = [(RollbackException::class)])
 @Service
-class AccountManagerImpl : AccountManager {
-    @PersistenceContext
-    private val em: EntityManager? = null
+class AccountManagerImpl(private val accountRepository: AccountRepository) : AccountManager {
 
     @Throws(BadRequestException::class)
-    override fun transfer(fromAccountId: Long?, toAccountId: Long?, value: BigDecimal) {
+    override fun transfer(fromAccountId: Long, toAccountId: Long, value: BigDecimal) {
         checkValue(value)
 
         if (fromAccountId == toAccountId) {
@@ -35,7 +31,7 @@ class AccountManagerImpl : AccountManager {
     }
 
     @Throws(BadRequestException::class)
-    override fun withdraw(accountId: Long?, value: BigDecimal) {
+    override fun withdraw(accountId: Long, value: BigDecimal) {
         checkValue(value)
 
         val account = reloadAccount(accountId)
@@ -46,7 +42,7 @@ class AccountManagerImpl : AccountManager {
     }
 
     @Throws(BadRequestException::class)
-    override fun deposit(accountId: Long?, value: BigDecimal) {
+    override fun deposit(accountId: Long, value: BigDecimal) {
         checkValue(value)
 
         val account = reloadAccount(accountId)
@@ -54,10 +50,8 @@ class AccountManagerImpl : AccountManager {
     }
 
     @Throws(BadRequestException::class)
-    private fun reloadAccount(accountId: Long?): Account {
-        return em!!.find(Account::class.java, accountId, LockModeType.OPTIMISTIC)
-                ?: throw BadRequestException(String.format("Can not load account with id '%s'", accountId))
-    }
+    private fun reloadAccount(accountId: Long) = accountRepository.findById(accountId).orElseThrow { RuntimeException(
+            java.lang.String.format("Can not found account by id '%s'", accountId)) }
 
     @Throws(BadRequestException::class)
     private fun checkValue(value: BigDecimal) {

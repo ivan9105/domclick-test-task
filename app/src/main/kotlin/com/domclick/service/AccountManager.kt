@@ -13,7 +13,7 @@ interface AccountManager {
      * @throws BadRequestException
      */
     @Throws(BadRequestException::class)
-    fun transfer(fromAccountId: Long?, toAccountId: Long?, value: BigDecimal)
+    fun transfer(fromAccountId: Long, toAccountId: Long, value: BigDecimal)
 
     /**
      * Withdraw money from account
@@ -22,7 +22,7 @@ interface AccountManager {
      * @param value money
      */
     @Throws(BadRequestException::class)
-    fun withdraw(accountId: Long?, value: BigDecimal)
+    fun withdraw(accountId: Long, value: BigDecimal)
 
     /**
      * Deposit money on account
@@ -31,5 +31,5 @@ interface AccountManager {
      * @param value money
      */
     @Throws(BadRequestException::class)
-    fun deposit(accountId: Long?, value: BigDecimal)
+    fun deposit(accountId: Long, value: BigDecimal)
 }

@@ -3,6 +3,7 @@ package com.domclick.controller
 import com.domclick.model.Account
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import lombok.RequiredArgsConstructor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,12 +17,8 @@ import javax.validation.Valid
 import java.lang.String.format
 
 @Controller
-class AccountController {
-    @Autowired
-    private lateinit var userRepository: UserRepository
-
-    @Autowired
-    private lateinit var accountRepository: AccountRepository
+class AccountController(private val userRepository: UserRepository,
+                        private val accountRepository: AccountRepository) {
 
     @GetMapping(value = ["/accounts"])
     fun accountsList(model: Model): String {
@@ -29,15 +26,13 @@ class AccountController {
         return "account/list"
     }
 
-    @GetMapping(value = arrayOf("/accounts/edit", "/accounts/edit/{id}"))
+    @GetMapping(value = ["/accounts/edit", "/accounts/edit/{id}"])
     fun accountEditForm(model: Model, @PathVariable(required = false, name = "id") id: Long?): String {
         val account = if (id != null) findAccountById(id) else Account()
 
         model.addAttribute("account", account)
-
         model.addAttribute("users", userRepository.findAll())
-
-        account!!.updateUserId()
+        if (account.user != null) account.updateUserId()
         return "account/edit"
     }
 
@@ -47,12 +42,11 @@ class AccountController {
             return "account/edit"
         }
 
-        val reload = findAccountById(account.id) ?: return "account/edit"
-
+        val reload = if (account.isNew()) Account() else findAccountById(account.id!!)
         reload.balance = account.balance
         reload.user = userRepository.findById(account.userId.toLong()).orElseThrow {
             RuntimeException(
-                    format("Can not found account by id '%s'", account.user!!.id))
+                    format("Can not found account by id '%s'", account.userId))
         }
 
         reload.updateUserId()
@@ -70,10 +64,9 @@ class AccountController {
         return "account/list"
     }
 
-    private fun findAccountById(id: Long): Account? {
-        return accountRepository.findById(id).orElseThrow {
-            RuntimeException(
-                    format("Can not found account by id '%s'", id))
-        }
-    }
+    private fun findAccountById(id: Long) =
+            accountRepository.findById(id).orElseThrow {
+                RuntimeException(
+                        format("Can not found account by id '%s'", id))
+            }
 }
