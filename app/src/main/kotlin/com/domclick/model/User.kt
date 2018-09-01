@@ -1,16 +1,13 @@
 package com.domclick.model
 
-import lombok.Builder
 import lombok.NoArgsConstructor
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
-import java.util.HashSet
 
-@Builder
 @NoArgsConstructor
 @Entity
 @Table(name = "BANK_USER")

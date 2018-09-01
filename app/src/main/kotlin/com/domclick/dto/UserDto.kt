@@ -1,12 +1,9 @@
 package com.domclick.dto
 
 import com.domclick.model.User
-import lombok.Builder
-
 import java.io.Serializable
-import java.util.ArrayList
+import java.util.*
 
-@Builder
 open class UserDto(user: User) : Serializable {
     var id: Long? = null
     var firstName: String? = null

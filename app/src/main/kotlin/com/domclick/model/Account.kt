@@ -1,14 +1,11 @@
 package com.domclick.model
 
-import lombok.Builder
 import lombok.NoArgsConstructor
+import java.math.BigDecimal
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
-import java.math.BigDecimal
-import kotlin.jvm.Transient
 
-@Builder
 @NoArgsConstructor
 @Entity
 @Table(name = "BANK_ACCOUNT")

@@ -1,13 +1,10 @@
 package com.domclick.dto
 
 import com.domclick.model.Account
-import lombok.Builder
-
 import java.io.Serializable
 import java.math.BigDecimal
-import java.util.ArrayList
+import java.util.*
 
-@Builder
 class AccountDto(account: Account) : Serializable {
     var id: Long? = null
     var balance: BigDecimal? = null

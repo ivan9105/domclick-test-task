@@ -17,9 +17,8 @@ import org.springframework.util.CollectionUtils
 @Scope("singleton")
 class DtoBuilder {
     @Value("\${server.url}")
-    private lateinit var serverUrl: String
+    lateinit var serverUrl: String
 
-    //Todo test
     fun buildUserResponse(users: List<User>): UserResponse {
         val response = UserResponse()
         users.forEach { user ->
