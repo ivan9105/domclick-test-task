@@ -21,3 +21,10 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 
 ## Инструкция для разработчиков ##
 Для создания проекта выполняем из projectDir gradle idea, открываем файл проекта через IDE Idea
+
+## Elastic ##
+Добавлена поддержка elastic search, необходимо проставить
+elasticsearch.home - путь до elastic, местонахождение bin папки
+elasticsearch.cluster.name - имя кластера, по умолчанию elasticsearch
+elasticsearch.host - host(см. настройки)
+elasticsearch.port - port(см. настройки)
