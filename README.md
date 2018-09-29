@@ -38,9 +38,13 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 * Далее устанавливаем через Power Shell(запусти через администратора) менеджер пакетов choco(гугли)
 * choco install minikube
 * `minikube start --cpus=4 --memory=4096 --vm-driver hyperv --hyperv-virtual-switch "Primary Virtual Switch"`, ждем
+* `minikube addons enable ingress` установка ingress
 * `minikube dashboard` если открылся dashboard в броузере по умолчания прыгаем от счастья
 
 ## Решение проблем с Kubernetes ##
 Иногда его проще переустановить через заставить работать после гибернизации к примеру, решение проблем
 * `minikube stop` остановка, не помогло? - `minikube ssh \ sudo poweroff`
 * `minikube delete`, не удаляет ругается на config.json, нужно полностью все удалить, отключаем Hyper-V, так же как и включаем(смотри выше), перезапускаемся заходим в $UserHome удаляем .minikube, удаляем C:\ProgramData\Microsoft\Windows\Hyper-V - папку Virtual Machines, включаем Hyper-V и все настраиваем снова как выше
+
+## Volumes ##
+Для docker и kubernetes volumes paths прописываются в unix style, для того чтобы перевести в WINDOWS можно установить git bash и открыть к примеру в target folder, например E:\storage\psql == /e/storage/psql
