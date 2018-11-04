@@ -55,6 +55,10 @@ dependencies {
     compile group: 'org.elasticsearch.client', name: 'transport', version: '5.6.0'
     compile 'org.elasticsearch.plugin:transport-netty4-client:5.6.0'
 
+    //security
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
+
     //quartz
     compile("org.quartz-scheduler:quartz")
 }
