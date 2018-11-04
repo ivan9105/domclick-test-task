@@ -1,14 +1,11 @@
 package com.domclick.model
 
-import lombok.NoArgsConstructor
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
-@NoArgsConstructor
 @Entity
 @Table(name = "BANK_USER")
 @NamedEntityGraph(name = "User.accounts", attributeNodes = [(NamedAttributeNode("accounts"))])
@@ -30,7 +27,7 @@ class User : BaseEntity() {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [(CascadeType.REMOVE)], orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    var accounts: Set<Account> = HashSet()
+    var accounts: Set<Account> = mutableSetOf()
 
     override fun toString() = String.format("%s %s %s", lastName, firstName, middleName)
 }

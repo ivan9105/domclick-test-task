@@ -1,12 +1,10 @@
 package com.domclick.model
 
-import lombok.NoArgsConstructor
 import java.math.BigDecimal
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
 
-@NoArgsConstructor
 @Entity
 @Table(name = "BANK_ACCOUNT")
 class Account : BaseEntity() {

@@ -54,3 +54,49 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 
 ## Quartz ##
 * TODO
+
+## OAuth2 ##
+* Получение access token-a
+
+ ```
+`curl -X POST \
+     http://localhost:8080/oauth/token \
+     -H 'authorization: Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA==' \
+     -F grant_type=password \
+     -F username=admin \
+     -F password=admin1234 \
+     -F client_id=spring-security-oauth2-read-write-client`
+ ```
+
+, где -H authorization Basic (CLIENT_ID:CLIENT_SECRET in Base64 из таблицы OAUTH_CLIENT_DETAILS)
+
+
+* Придет ответ в формате
+
+ ```json
+`{
+    "access_token":"4f62ccd4-cc35-4f99-ab11-baa1eb61f9e0",
+    "token_type":"bearer",
+    "refresh_token":"94aa62f1-4fb2-49a4-9ee2-71381fa67cb7",
+    "expires_in":10799,
+    "scope":"read write"
+ }`
+```
+
+* Для получения информации используйте access_token в header-e authorization
+
+ ```
+`curl -X GET \
+   http://localhost:8080/secured/company/ \
+   -H 'authorization: Bearer 4f62ccd4-cc35-4f99-ab11-baa1eb61f9e0'`
+```
+
+* Если access token is expired, можно обновить access token с помощью refresh token-a
+
+ ```
+`curl -X POST \
+   http://localhost:8080/oauth/token \
+   -H 'authorization: Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA==' \
+   -F refresh_token=94aa62f1-4fb2-49a4-9ee2-71381fa67cb7 \
+   -F grant_type=refresh_token`
+ ```
