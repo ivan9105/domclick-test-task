@@ -20,8 +20,15 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class SecurityConfig(private val userPasswordEncoder: PasswordEncoder,
                      private val userDetailsService: UserDetailsService) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
-        http.authorizeRequests()
-                .antMatchers("/api/account/list").authenticated()
+        //Todo add oauth/** pattern instead of /api/account/list
+        http
+                .authorizeRequests().antMatchers("/api/account/list").authenticated()
+                .and()
+                .authorizeRequests().antMatchers("/h2/**").permitAll()
+
+        //use for enable h2 web client, todo use other vendor and disable it
+        http.csrf().disable()
+        http.headers().frameOptions().disable()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -30,6 +37,4 @@ class SecurityConfig(private val userPasswordEncoder: PasswordEncoder,
 
     @Bean
     override fun authenticationManagerBean() = super.authenticationManagerBean()
-
-    //Todo check setters in user details and authority is work
 }
