@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserDetailsRepository : JpaRepository<UserDetails, Long> {
-    @EntityGraph(value = "UserDetails.authorities", type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(value = "UserDetails.authorities", type = EntityGraph.EntityGraphType.FETCH, attributePaths = ["authorities"])
     fun findByUsername(@Param("username") username: String): UserDetails?
 }

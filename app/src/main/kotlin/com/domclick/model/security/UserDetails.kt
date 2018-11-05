@@ -1,6 +1,6 @@
 package com.domclick.model.security
 
-import com.domclick.model.BaseEntity
+import com.domclick.model.IdentifierEntity
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.apache.commons.lang3.BooleanUtils.isFalse
 import org.apache.commons.lang3.BooleanUtils.isTrue
@@ -9,7 +9,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "USER_", uniqueConstraints = [(UniqueConstraint(columnNames = arrayOf("USER_NAME")))])
-class UserDetails : BaseEntity(), UserDetails {
+class UserDetails : IdentifierEntity(), UserDetails {
     @Column(name = "USER_NAME")
     private var username: String? = null
 
