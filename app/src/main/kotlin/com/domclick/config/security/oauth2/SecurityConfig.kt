@@ -1,6 +1,7 @@
-package com.domclick.config.security
+package com.domclick.config.security.oauth2
 
-import com.domclick.config.security.encryption.Encoders
+import com.domclick.config.security.oauth2.encryption.Encoders
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 
+@ConditionalOnProperty(name = ["security.protocol"], havingValue = "oauth2")
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
@@ -20,13 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class SecurityConfig(private val userPasswordEncoder: PasswordEncoder,
                      private val userDetailsService: UserDetailsService) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
-        //Todo add oauth/** pattern instead of /api/account/list
         http
-                .authorizeRequests().antMatchers("/api/account/list").authenticated()
+                .authorizeRequests().antMatchers("/api/oauth2/**").authenticated()
                 .and()
                 .authorizeRequests().antMatchers("/h2/**").permitAll()
 
-        //use for enable h2 web client, todo use other vendor and disable it
+        //use for enable h2 web client, todo use other vendor and disable it or add h2 profile and support some configuration files
         http.csrf().disable()
         http.headers().frameOptions().disable()
     }
