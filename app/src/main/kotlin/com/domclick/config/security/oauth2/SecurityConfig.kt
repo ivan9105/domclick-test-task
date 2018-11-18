@@ -1,6 +1,6 @@
 package com.domclick.config.security.oauth2
 
-import com.domclick.config.security.oauth2.encryption.Encoders
+import com.domclick.config.security.encryption.Encoders
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean

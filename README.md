@@ -56,6 +56,10 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 * TODO
 
 ## OAuth2 ##
+В application.properties
+
+`security.protocol=oauth2`
+
 * Получение access token-a
 
  ```
@@ -100,3 +104,32 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
    -F refresh_token=0086473b-4233-48aa-8b5f-40cd62b0dd02 \
    -F grant_type=refresh_token`
  ```
+
+## Security ##
+Для тестирования использую зависимость
+ ```
+`testCompile("org.springframework.security:spring-security-test")`
+ ```
+
+В MockMvcSecurityConfigTest.kt пример того как можно использовать MockMvc
+
+
+## LDAP ##
+В application.properties
+
+`security.protocol=ldap`
+
+Для того чтобы сэмулировать хранилище
+  ```
+ `testCompile("org.springframework.security:spring-security-test")`
+  ```
+
+Доп. настройки:
+
+Пользователи
+`spring.ldap.embedded.ldif=classpath:local-storage.ldif`
+
+Пример использования
+`curl -X GET 'http://127.0.0.1:8080/api/account/list' -u ben:benspassword`
+
+* Todo
