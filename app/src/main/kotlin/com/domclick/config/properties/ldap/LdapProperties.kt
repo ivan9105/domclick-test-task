@@ -1,11 +1,9 @@
-package com.domclick.config.security.ldap
+package com.domclick.config.properties.ldap
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import javax.validation.constraints.NotBlank
 
-@ConditionalOnProperty(name = ["security.protocol"], havingValue = "ldap")
 @Configuration
 @ConfigurationProperties(prefix = "security.ldap")
 class LdapProperties {

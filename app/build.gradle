@@ -50,12 +50,17 @@ dependencies {
     compile group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '3.0.8.RELEASE'
     compile group: 'org.elasticsearch.client', name: 'transport', version: '5.6.0'
     compile 'org.elasticsearch.plugin:transport-netty4-client:5.6.0'
+    compile ("org.springframework.data:spring-data-jpa")
 
     //security
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.0.RELEASE'
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
+
+    //ldap
     compile("org.springframework.ldap:spring-ldap-core")
     compile("org.springframework.security:spring-security-ldap")
+    compile("org.springframework.data:spring-data-ldap")
+
     //emulate ldap connection
     compile("com.unboundid:unboundid-ldapsdk")
 
@@ -69,6 +74,7 @@ dependencies {
         exclude group: 'ch.qos.logback'
     }
     testCompile("org.springframework.security:spring-security-test")
+    testCompile("org.springframework.ldap:spring-ldap-test")
 }
 
 repositories {

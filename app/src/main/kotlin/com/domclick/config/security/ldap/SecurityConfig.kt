@@ -1,5 +1,6 @@
 package com.domclick.config.security.ldap
 
+import com.domclick.config.properties.ldap.LdapProperties
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Configuration
@@ -24,7 +25,10 @@ class SecurityConfig(private val userPasswordEncoder: PasswordEncoder, private v
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        //Todo ldap repository
+        //Todo ldap controller
+        //Todo spring ldap dto converters
+        //Todo ldap template
+        //Todo repository test
         auth
                 .ldapAuthentication()
                 .userDnPatterns(ldapProperties.userDnPatterns)
