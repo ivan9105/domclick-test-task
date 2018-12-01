@@ -67,6 +67,11 @@ dependencies {
     //quartz
     compile("org.quartz-scheduler:quartz")
 
+    //acl
+    compile("org.springframework.security:spring-security-acl")
+    compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.6'
+    //Todo
+
     //test
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile (group: 'org.mock-server', name: 'mockserver-netty', version: '5.4.1') {

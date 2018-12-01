@@ -133,3 +133,76 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 `curl -X GET 'http://127.0.0.1:8080/api/account/list' -u ben:benspassword`
 
 * Todo
+
+
+## ACL ##
+
+В application.properties
+
+`security.acl.enabled=true`
+
+Структура бд
+
+Security Identity
+ ```
+`INSERT INTO acl_sid (id, principal, sid) VALUES
+(1, 1, 'PROJECT_MANAGER'),
+(2, 1, 'DEVELOPER'),
+(3, 0, 'TEXT_WRITER');`
+ ```
+* principal - признак является ли роль главной
+* sid - наименование роли
+
+Имя класса
+ ```
+`INSERT INTO acl_class (id, class) VALUES
+ (1, 'com.domclick.model.acl.Answer');`
+ ```
+* class - полное наименования класса
+
+Идентификация объекта
+ ```
+`INSERT INTO acl_object_identity (id, object_id_class, object_id_identity, parent_object, owner_sid, entries_inheriting) VALUES
+ (1, 1, 1, NULL, 3, 0),
+ (2, 1, 2, NULL, 3, 0),
+ (3, 1, 3, NULL, 3, 0);`
+ ```
+* object_id_class - ссылка на таблицу с данными по классам acl_class table
+* object_id_identity - первичный ключ целевого объекта (т.е. объекта бизнес логики - таблица для сущности Answer)
+* parent_object - родительский объект (из этой же таблицы)
+* owner_sid - владелец объекта, связь с acl_sid table
+* entries_inheriting - записи этого объекта наследледуются от родительского (иерархия на основе таблицы acl_entry таблицы)
+
+Записи (детальное описание прав)
+ ```
+`INSERT INTO acl_entry (id, acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) VALUES
+ (1, 1, 1, 1, 1, 1, 1, 1),
+ (2, 1, 2, 1, 2, 1, 1, 1),
+ (3, 1, 3, 3, 1, 1, 1, 1),
+ (4, 2, 1, 2, 1, 1, 1, 1),
+ (5, 2, 2, 3, 1, 1, 1, 1),
+ (6, 3, 1, 3, 1, 1, 1, 1),
+ (7, 3, 2, 3, 2, 1, 1, 1);`
+ ```
+* acl_object_identity - ссылка на запись в acl_object_identity table
+* ace_order - порядок текущей записи в списке acl_entry на основании acl_object_identity
+* sid - ссылка на acl_sid, принадлежность к owner
+* mask - READ == 1 и WRITE == 2
+* granting - 0 запрещено, 1 разрешено
+* audit_success и audit_failure для аудита
+
+детальное описание
+
+1 - разрешить PROJECT_MANAGER читать "Идентификацию объекта" с id == 1, которая ссылается на реальный объект Answer
+
+2 - разрешить PROJECT_MANAGER редактировать "Идентификацию объекта" с id == 1, которая ссылается на реальный объект Answer
+
+3 - разрешить TEXT_WRITER читать "Идентификацию объекта" с id == 1, которая ссылается на реальный объект Answer
+
+4 - разрешить DEVELOPER читать "Идентификацию объекта" с id == 2, которая ссылается на реальный объект Answer
+
+5 - разрешить TEXT_WRITER читать "Идентификацию объекта" с id == 2, которая ссылается на реальный объект Answer
+
+6 - разрешить TEXT_WRITER читать "Идентификацию объекта" с id == 3, которая ссылается на реальный объект Answer
+
+7 - разрешить TEXT_WRITER редактировать "Идентификацию объекта" с id == 2, которая ссылается на реальный объект Answer

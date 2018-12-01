@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Configuration
 import javax.sql.DataSource
 
 @Configuration
-class FlywayConfig(private val dataSource: DataSource) {
+class FlywayConfig(private val dataSource_: DataSource) {
 
     @Bean
-    fun flyway(): Flyway {
-        val flyway = Flyway()
-        flyway.dataSource = dataSource
-        flyway.sqlMigrationPrefix = "V"
-        flyway.migrate()
-        return flyway
+    fun flyway() = Flyway().apply {
+        this.dataSource = dataSource_
+        sqlMigrationPrefix = "V"
+        migrate()
     }
 }

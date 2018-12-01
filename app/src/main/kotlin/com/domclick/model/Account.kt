@@ -20,9 +20,7 @@ class Account : BaseEntity() {
     @Transient
     var userId: String = ""
 
-    fun getUserStr(): String {
-        return user.toString()
-    }
+    fun getUserStr() = user.toString()
 
     fun updateUserId() {
         this.userId = user!!.id.toString()
