@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner
 @SpringBootTest(classes = [(AppApplication::class)])
 class UserRepositoryTest : BaseTestSupport() {
 /*
+//Todo refactoring
+
     @Test
     fun crudTest() {
         var user = createTestUser()

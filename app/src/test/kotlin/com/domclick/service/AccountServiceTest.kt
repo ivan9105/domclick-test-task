@@ -9,7 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [(AppApplication::class)])
 class AccountServiceTest : BaseTestSupport() {
-    /*@Autowired
+    /*
+//Todo refactoring
+    @Autowired
     private lateinit var accountService: AccountService
 
     private val fakeAccount: Account

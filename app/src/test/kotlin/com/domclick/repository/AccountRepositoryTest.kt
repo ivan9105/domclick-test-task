@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner
 class AccountRepositoryTest : BaseTestSupport() {
     /*private lateinit var user: User
 
+    //Todo refactoring
+
     @Before
     fun init() {
         user = userRepository.findById(0L).orElseThrow { IllegalStateException("Datasource do not initialize") }
