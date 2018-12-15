@@ -19,8 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @Import(Encoders::class)
-class SecurityConfig(private val userPasswordEncoder: PasswordEncoder,
-                     private val userDetailsService: UserDetailsService) : WebSecurityConfigurerAdapter() {
+class SecurityConfig(
+        private val userPasswordEncoder: PasswordEncoder,
+        private val userDetailsService: UserDetailsService
+) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
                 .authorizeRequests().antMatchers("/api/oauth2/**").authenticated()

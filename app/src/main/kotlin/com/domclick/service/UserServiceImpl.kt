@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional(rollbackFor = [(RollbackException::class)])
 @Service
-class UserServiceImpl(private val userRepository: UserRepository) : CrudServiceImpl<User, Long>(), UserService {
+class UserServiceImpl(
+        private val userRepository: UserRepository
+) : CrudServiceImpl<User, Long>(), UserService {
+
     override fun upsert(entity: User) {
         val reload = if (entity.isNew()) User() else findUserAccountsById(entity.id!!)
         reload.middleName = entity.middleName

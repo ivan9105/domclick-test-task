@@ -4,7 +4,6 @@ import com.domclick.dto.AccountDto
 import com.domclick.dto.request.AccountDepositRequest
 import com.domclick.dto.request.AccountTransferRequest
 import com.domclick.dto.request.AccountWithdrawRequest
-import com.domclick.dto.response.AccountResponse
 import com.domclick.exception.BadRequestException
 import com.domclick.service.AccountService
 import com.domclick.utils.DtoBuilder
@@ -15,12 +14,14 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/account")
-class AccountRESTController(private val dtoBuilder: DtoBuilder,
-                            private val accountService: AccountService) {
+class AccountRESTController(
+        private val dtoBuilder: DtoBuilder,
+        private val accountService: AccountService
+) {
+
     @GetMapping("/list")
-    fun accountList(): AccountResponse {
-        return dtoBuilder.buildAccountResponse(Lists.newArrayList(accountService.findAll()))
-    }
+    fun accountList() = dtoBuilder.buildAccountResponse(Lists.newArrayList(accountService.findAll()))
+
 
     @GetMapping("/get/{id}")
     @Throws(BadRequestException::class)

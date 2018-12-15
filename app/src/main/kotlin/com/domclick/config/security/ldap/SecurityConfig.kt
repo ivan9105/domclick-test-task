@@ -15,7 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
-class SecurityConfig(private val userPasswordEncoder: PasswordEncoder, private val ldapProperties: LdapProperties) : WebSecurityConfigurerAdapter() {
+class SecurityConfig(
+        private val userPasswordEncoder: PasswordEncoder,
+        private val ldapProperties: LdapProperties
+) : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()

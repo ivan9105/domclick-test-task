@@ -13,8 +13,10 @@ import java.lang.String.format
 import javax.validation.Valid
 
 @Controller
-class AccountController(private val userService: UserService,
-                        private val accountService: AccountService) {
+class AccountController(
+        private val userService: UserService,
+        private val accountService: AccountService
+) {
 
     @GetMapping(value = ["/accounts"])
     fun accountsList(model: Model): String {
