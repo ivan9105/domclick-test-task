@@ -247,7 +247,7 @@ Image push to docker hub
 
 `docker push $DOCKER_ID/$DOCKER_REPO_ID:$TAG`
 
-Docker compose
+## Docker compose ##
 
 Решение проблем
 
@@ -273,3 +273,7 @@ volumes:
 ```
 
 больше информации https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/23
+
+## Профили ##
+
+Use -Dspring.profiles.active=postgres in VM Options or java -jar -Dspring.profiles.active=dev ID.jar

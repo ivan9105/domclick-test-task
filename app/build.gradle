@@ -38,7 +38,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework:spring-context-support")
-    compile("com.h2database:h2")
     compile("org.hibernate.validator:hibernate-validator")
     compile("commons-lang:commons-lang:2.6")
     compile("com.google.guava:guava:23.0")
@@ -53,6 +52,10 @@ dependencies {
     compile("org.elasticsearch.client:transport:5.6.0")
     compile("org.elasticsearch.plugin:transport-netty4-client:5.6.0")
     compile("org.springframework.data:spring-data-jpa")
+
+    //db
+    compile("com.h2database:h2")
+    compile("org.postgresql:postgresql:42.2.5")
 
     //security
     compile("org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE")

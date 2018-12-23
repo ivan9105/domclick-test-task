@@ -1,8 +1,8 @@
 package com.domclick.model
 
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*
+import javax.persistence.CascadeType.REMOVE
+import javax.persistence.FetchType.LAZY
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -25,8 +25,7 @@ class User : BaseEntity() {
     @Column(name = "MIDDLE_NAME", nullable = false)
     var middleName: String? = null
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [(CascadeType.REMOVE)], orphanRemoval = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "user", fetch = LAZY, cascade = [REMOVE])
     var accounts: Set<Account> = mutableSetOf()
 
     override fun toString() = String.format("%s %s %s", lastName, firstName, middleName)
