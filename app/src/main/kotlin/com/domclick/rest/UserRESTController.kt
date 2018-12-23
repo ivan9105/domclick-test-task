@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/user")
-class UserRESTController(private val userService: UserService,
-                         private val dtoBuilder: DtoBuilder) {
+class UserRESTController(
+        private val userService: UserService,
+        private val dtoBuilder: DtoBuilder
+) {
+
     @GetMapping("/list")
     fun userList() = dtoBuilder.buildUserResponse(Lists.newArrayList(userService.findAll()))
 

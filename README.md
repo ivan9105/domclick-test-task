@@ -206,3 +206,74 @@ Security Identity
 6 - разрешить TEXT_WRITER читать "Идентификацию объекта" с id == 3, которая ссылается на реальный объект Answer
 
 7 - разрешить TEXT_WRITER редактировать "Идентификацию объекта" с id == 2, которая ссылается на реальный объект Answer
+
+## Docker ##
+
+Сборка и создание образа
+
+`gradle docker`
+
+Запуск
+
+`docker run -p 8080:8080 -d -t domclick`
+
+Посмотреть логи
+
+`docker logs (docker ps | grep domclick | awk '{print $1}')`
+
+Остановить container
+
+`docker stop (docker ps | grep domclick | awk '{print $1}') `
+
+Скрипты (windows запускать из power shell) из корневой папки проекта
+
+`.\deploy\build.sh`
+
+`.\deploy\start.sh`
+
+`.\deploy\stop.sh`
+
+Postgres
+
+Пример volume для windows
+
+`docker run -p 5432:5432 -it -v /e/storage/psql:/var/lib/postgresql/data postgres:latest -e POSTGRES_USER=user POSTGRES_PASSWORD=password`
+
+Для подключение внутри контейнера приложения к postgres, т.е. по факту подключение одного контейнера к другому используется не localhost а имя сервиса например db в (docker-compose.yml)
+
+Image push to docker hub
+
+`docker tag domclick $DOCKER_ID/domclick:$TAG`
+
+`docker push $DOCKER_ID/$DOCKER_REPO_ID:$TAG`
+
+## Docker compose ##
+
+Решение проблем
+
+No such image - нужно сделать docker-compose ps и docker-compose rm
+Windows - если проект в root directory будет ошибка permission denied, нужно перенести проект в другую директорию
+
+Volume
+Для того чтобы создать volume нужно выполнить
+
+` docker volume create pgdata`
+
+использовать его можно так
+
+```
+services:
+  serviceId:
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    external: true
+```
+
+больше информации https://forums.docker.com/t/data-directory-var-lib-postgresql-data-pgdata-has-wrong-ownership/17963/23
+
+## Профили ##
+
+Use -Dspring.profiles.active=postgres in VM Options or java -jar -Dspring.profiles.active=dev ID.jar

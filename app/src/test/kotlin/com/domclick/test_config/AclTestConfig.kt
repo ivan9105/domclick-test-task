@@ -1,6 +1,7 @@
 package com.domclick.test_config
 
 import com.domclick.config.FlywayConfig
+import com.domclick.config.properties.persistance.PersistenceProperties
 import com.domclick.config.security.acl.AclConfig
 import com.domclick.config.security.acl.AclMethodSecurityConfig
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -17,5 +18,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableAutoConfiguration
 @EntityScan(value = ["com.domclick.model.acl"])
 @EnableJpaRepositories(basePackages = ["com.domclick.repository.acl"])
-@Import(AclConfig::class, AclMethodSecurityConfig::class, FlywayConfig::class)
+@Import(PersistenceProperties::class, AclConfig::class, AclMethodSecurityConfig::class, FlywayConfig::class)
 class AclTestConfig

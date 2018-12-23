@@ -22,10 +22,12 @@ import javax.sql.DataSource
 @EnableAuthorizationServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(SecurityConfig::class)
-class AuthServerOAuth2Config(private val dataSource: DataSource,
-                             private val authenticationManager: AuthenticationManager,
-                             private val userDetailsService: UserDetailsService,
-                             private val oauthClientPasswordEncoder: PasswordEncoder) : AuthorizationServerConfigurerAdapter() {
+class AuthServerOAuth2Config(
+        private val dataSource: DataSource,
+        private val authenticationManager: AuthenticationManager,
+        private val userDetailsService: UserDetailsService,
+        private val oauthClientPasswordEncoder: PasswordEncoder
+) : AuthorizationServerConfigurerAdapter() {
 
     @Bean
     fun tokenStore() = JdbcTokenStore(dataSource)

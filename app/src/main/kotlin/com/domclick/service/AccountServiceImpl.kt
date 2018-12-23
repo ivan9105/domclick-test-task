@@ -12,8 +12,11 @@ import java.math.BigDecimal
 
 @Transactional(rollbackFor = [(RollbackException::class)])
 @Service
-class AccountServiceImpl(private val accountRepository: AccountRepository,
-                         private val userRepository: UserRepository) : CrudServiceImpl<Account, Long>(), AccountService {
+class AccountServiceImpl(
+        private val accountRepository: AccountRepository,
+                         private val userRepository: UserRepository
+) : CrudServiceImpl<Account, Long>(), AccountService {
+
     override fun findAccountByIdWithLock(accountId: Long) = accountRepository.findById(accountId)
 
     override fun upsert(entity: Account) {

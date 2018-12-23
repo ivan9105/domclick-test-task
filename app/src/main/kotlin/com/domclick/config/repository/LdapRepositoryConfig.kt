@@ -11,7 +11,10 @@ import org.springframework.ldap.core.support.LdapContextSource
 
 @Configuration
 @EnableLdapRepositories(basePackages = ["com.domclick.repository.ldap.**"])
-class LdapRepositoryConfig(private val ldapProperties: LdapProperties, private val ldapEmbeddedProperties: LdapEmbeddedProperties) {
+class LdapRepositoryConfig(
+        private val ldapProperties: LdapProperties,
+        private val ldapEmbeddedProperties: LdapEmbeddedProperties
+) {
 
     @Bean
     fun ldapContextSource(): ContextSource {

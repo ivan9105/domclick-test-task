@@ -13,7 +13,7 @@ class Account : BaseEntity() {
     @Column(name = "BALANCE", nullable = false, precision = 19, scale = 2)
     var balance: BigDecimal? = BigDecimal(0)
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade= [(CascadeType.ALL)])
+    @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     var user: User? = null
 
