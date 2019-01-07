@@ -1,7 +1,7 @@
 package com.domclick.utils
 
-import com.domclick.model.Account
-import com.domclick.model.User
+import com.domclick.entity.Account
+import com.domclick.entity.User
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test

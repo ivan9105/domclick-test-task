@@ -1,6 +1,6 @@
 package com.domclick.controller
 
-import com.domclick.model.Account
+import com.domclick.entity.Account
 import com.domclick.service.AccountService
 import com.domclick.service.UserService
 import org.springframework.stereotype.Controller

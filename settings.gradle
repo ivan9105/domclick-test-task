@@ -1,2 +1,2 @@
 rootProject.name = 'domclick-test-task'
-include 'app'
+include 'app', 'persistence', 'security', 'elastic', 'job', 'rest','service','global'

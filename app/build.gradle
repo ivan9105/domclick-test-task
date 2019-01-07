@@ -1,22 +1,11 @@
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
 apply plugin: 'com.palantir.docker'
 
 buildscript {
-    ext {
-        kotlinVersion = '1.2.51'
-    }
     repositories {
-        mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
     }
+
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
     }
 }
@@ -26,83 +15,24 @@ bootJar {
     version = '1.0-SNAPSHOT'
 }
 
-group 'domclick-test-task'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-test")
+    compile project(":security")
+    compile project(":elastic")
+    compile project(":job")
+    compile project(":rest")
+    compile project(":service")
+
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.springframework:spring-context-support")
-    compile("org.hibernate.validator:hibernate-validator")
-    compile("commons-lang:commons-lang:2.6")
-    compile("com.google.guava:guava:23.0")
-    compile("io.springfox:springfox-swagger2:2.8.0")
-    compile("io.springfox:springfox-swagger-ui:2.8.0")
-    compile("org.flywaydb:flyway-core:3.0")
+
     compile("org.mock-server:mockserver-client-java:5.4.1")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
-    compile("org.elasticsearch:elasticsearch:5.6.0")
-    compile("org.springframework.data:spring-data-elasticsearch:3.0.8.RELEASE")
-    compile("org.elasticsearch.client:transport:5.6.0")
-    compile("org.elasticsearch.plugin:transport-netty4-client:5.6.0")
-    compile("org.springframework.data:spring-data-jpa")
-
-    //db
-    compile("com.h2database:h2")
-    compile("org.postgresql:postgresql:42.2.5")
-
-    //security
-    compile("org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE")
-    compile("org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE")
-
-    //ldap
-    compile("org.springframework.ldap:spring-ldap-core")
-    compile("org.springframework.security:spring-security-ldap")
-    compile("org.springframework.data:spring-data-ldap")
-
-    //emulate ldap connection
-    compile("com.unboundid:unboundid-ldapsdk")
-
-    //quartz
-    compile("org.quartz-scheduler:quartz")
-
-    //acl
-    compile("org.springframework.security:spring-security-acl")
-    compile("net.sf.ehcache:ehcache:2.10.6")
 
     //test
-    testCompile("junit:junit:4.12")
     testCompile(group: 'org.mock-server', name: 'mockserver-netty', version: '5.4.1') {
         exclude group: 'org.slf4j'
         exclude group: 'ch.qos.logback'
-    }
-    testCompile("org.springframework.security:spring-security-test")
-    testCompile("org.springframework.ldap:spring-ldap-test")
-}
-
-repositories {
-    mavenCentral()
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/milestone" }
-}
-
-
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
     }
 }
 
