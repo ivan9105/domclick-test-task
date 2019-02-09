@@ -1,0 +1,5 @@
+dependencies {
+    //quartz
+    compile("org.quartz-scheduler:quartz")
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+}

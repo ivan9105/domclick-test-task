@@ -1,23 +1,67 @@
-subprojects {
-    buildscript {
-        repositories {
-            mavenCentral()
-        }
-        dependencies {
-            classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE")
-        }
+buildscript {
+    ext {
+        kotlinVersion = '1.2.51'
+        swaggerVersion = '2.9.2'
     }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE")
+    }
+}
+
+subprojects {
+    //Todo dependencies
+    //Todo rest module
+    //Todo tests
 
     repositories {
         mavenCentral()
         maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
         maven { url "https://mvnrepository.com/artifact/org.projectlombok/lombok" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
     }
 
-    apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'kotlin'
+    apply plugin: 'kotlin-spring'
+
+    compileKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "1.8"
+        }
+    }
+
+    compileTestKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "1.8"
+        }
+    }
+
+    group 'domclick-test-task'
+    version '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
 
     dependencies {
-        compile group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+        //security
+        compile("org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE")
+
+        //test
+        testCompile("org.springframework.security:spring-security-test")
+
+        //spring
+        compile("org.springframework:spring-context-support")
     }
 }

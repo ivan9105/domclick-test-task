@@ -1,0 +1,8 @@
+//Todo service depends on persistence
+//Todo remove from app persistence, add service
+//Todo rest dependens on service
+
+dependencies {
+    compile project(":persistence")
+    compile project(":global")
+}
