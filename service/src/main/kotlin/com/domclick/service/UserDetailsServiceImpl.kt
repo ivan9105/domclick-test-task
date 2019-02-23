@@ -1,6 +1,6 @@
 package com.domclick.service
 
-import com.domclick.repository.oauth2.UserDetailsRepository
+import com.domclick.repository.UserDetailsRepository
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
