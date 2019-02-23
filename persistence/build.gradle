@@ -1,10 +1,10 @@
-//Todo module migration
+////Todo module migration
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-test")
-    compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.hibernate.validator:hibernate-validator")
+    compile("org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:2.1.3.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-test:2.1.3.RELEASE")
+    compile("org.hibernate.validator:hibernate-validator:6.0.9.Final")
     compile("commons-lang:commons-lang:2.6")
     compile("com.google.guava:guava:23.0")
 
@@ -14,9 +14,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-reflect")
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
 
-    compile("org.springframework.data:spring-data-jpa")
-
     //db
-    compile("com.h2database:h2")
+    compile("com.h2database:h2:1.4.197")
     compile("org.postgresql:postgresql:42.2.5")
 }

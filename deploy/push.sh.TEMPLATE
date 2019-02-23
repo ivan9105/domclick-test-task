@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker tag domclick $DOCKER_ID/domclick:$TAG
+docker tag com.domclick $DOCKER_ID/domclick:$TAG
 docker push $DOCKER_ID/$DOCKER_REPO_ID:$TAG

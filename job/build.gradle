@@ -1,5 +1,5 @@
 dependencies {
     //quartz
-    compile("org.quartz-scheduler:quartz")
-    compile "org.jetbrains.kotlin:kotlin-reflect"
+    compile("org.quartz-scheduler:quartz:2.3.0")
+    compile("org.jetbrains.kotlin:kotlin-reflect:1.3.21")
 }
