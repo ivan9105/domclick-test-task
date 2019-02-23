@@ -8,6 +8,7 @@ import com.domclick.repository.UserRepository
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.lang.String.format
 import java.math.BigDecimal
 
 @Transactional(rollbackFor = [(RollbackException::class)])
@@ -20,11 +21,11 @@ class AccountServiceImpl(
     override fun findAccountByIdWithLock(accountId: Long) = accountRepository.findById(accountId)
 
     override fun upsert(entity: Account) {
-        val reload = if (entity.isNew()) Account() else findById(entity.id!!).orElseThrow { RuntimeException(String.format("Can not found Account with id '%s'", entity.id!!)) }
+        val reload = if (entity.isNew()) Account() else accountRepository.findById(entity.id!!)
+                .orElseThrow { RuntimeException(String.format("Can not found Account with id '%s'", entity.id!!)) }
         reload.balance = entity.balance
         reload.user = userRepository.findById(entity.userId.toLong()).orElseThrow {
-            RuntimeException(
-                    java.lang.String.format("Can not found account by id '%s'", entity.userId))
+            RuntimeException(format("Can not found User by id '%s'", entity.userId))
         }
 
         reload.updateUserId()
@@ -36,7 +37,7 @@ class AccountServiceImpl(
 
     @Throws(BadRequestException::class)
     override fun transfer(fromAccountId: Long, toAccountId: Long, value: BigDecimal) {
-        checkValue(value)
+        validateValue(value)
 
         if (fromAccountId == toAccountId) {
             throw BadRequestException("From account can not be equals to account")
@@ -45,7 +46,7 @@ class AccountServiceImpl(
         val fromAccount = reloadAccount(fromAccountId)
         val toAccount = reloadAccount(toAccountId)
 
-        checkWithDrawPossibility(value, fromAccount)
+        validateWithdrawPossibility(value, fromAccount)
 
         fromAccount.balance = fromAccount.balance!!.subtract(value)
         toAccount.balance = toAccount.balance!!.add(value)
@@ -53,18 +54,18 @@ class AccountServiceImpl(
 
     @Throws(BadRequestException::class)
     override fun withdraw(accountId: Long, value: BigDecimal) {
-        checkValue(value)
+        validateValue(value)
 
         val account = reloadAccount(accountId)
 
-        checkWithDrawPossibility(value, account)
+        validateWithdrawPossibility(value, account)
 
         account.balance = account.balance!!.subtract(value)
     }
 
     @Throws(BadRequestException::class)
     override fun deposit(accountId: Long, value: BigDecimal) {
-        checkValue(value)
+        validateValue(value)
 
         val account = reloadAccount(accountId)
         account.balance = account.balance!!.add(value)
@@ -77,16 +78,16 @@ class AccountServiceImpl(
     }
 
     @Throws(BadRequestException::class)
-    private fun checkValue(value: BigDecimal) {
+    private fun validateValue(value: BigDecimal) {
         if (value.toDouble() <= 0) {
             throw BadRequestException("Value must be over than 0")
         }
     }
 
     @Throws(BadRequestException::class)
-    private fun checkWithDrawPossibility(value: BigDecimal, account: Account) {
+    private fun validateWithdrawPossibility(value: BigDecimal, account: Account) {
         if (account.balance!!.subtract(value).toDouble() < 0) {
-            throw BadRequestException(String.format("On account with id '%s' not enough money", value))
+            throw BadRequestException(String.format("On account with id '%s' not enough money", account.id))
         }
     }
 }
