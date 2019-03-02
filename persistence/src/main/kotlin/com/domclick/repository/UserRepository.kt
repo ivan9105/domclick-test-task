@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository
 interface UserRepository : CrudRepository<User, Long> {
     @EntityGraph(value = "User.accounts", type = LOAD)
     @Query("select u from User u where u.id = :id")
-    fun findUserAccountsById(@Param("id") id: Long): User
+    fun findUserAccountsById(@Param("id") id: Long): User?
 }

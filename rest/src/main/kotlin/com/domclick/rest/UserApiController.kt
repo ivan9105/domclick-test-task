@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.lang.String.format
 
 @RestController
 @RequestMapping("/api/user")
@@ -24,6 +25,7 @@ class UserApiController(
     @Throws(BadRequestException::class)
     fun getUser(@PathVariable(name = "id") id: Long): UserAccountsDto {
         val user = userService.findUserAccountsById(id)
+                ?: throw BadRequestException(format("User with id '%s' not found", id))
         return dtoBuilder.buildUserAccountsDto(user)
     }
 }

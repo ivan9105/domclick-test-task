@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552053836627,
+  "status": 400,
+  "error": "Bad request error",
+  "message": "Account with id '9999' not found",
+  "path": "/api/account/withdraw"
+}

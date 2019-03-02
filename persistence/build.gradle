@@ -8,7 +8,7 @@ dependencies {
     compile("commons-lang:commons-lang:2.6")
     compile("com.google.guava:guava:23.0")
 
-    compile("org.flywaydb:flyway-core:3.0")
+    compile("org.flywaydb:flyway-core:5.2.2")
 
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
