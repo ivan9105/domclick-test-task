@@ -1,4 +1,5 @@
 apply plugin: 'com.palantir.docker'
+apply plugin: 'org.springframework.boot'
 
 buildscript {
     repositories {
@@ -22,7 +23,6 @@ dependencies {
     compile project(":rest")
     compile project(":service")
 
-    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     compile("org.mock-server:mockserver-client-java:5.4.1")

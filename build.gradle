@@ -1,7 +1,6 @@
 buildscript {
     ext {
         kotlinVersion = '1.3.21'
-        swaggerVersion = '2.9.2'
     }
     repositories {
         mavenCentral()
@@ -26,7 +25,6 @@ subprojects {
     }
 
     apply plugin: 'idea'
-    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'kotlin'
     apply plugin: 'kotlin-spring'
@@ -51,16 +49,12 @@ subprojects {
     sourceCompatibility = 1.8
 
     dependencies {
-        //security
-        compile("org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE")
-
         //test
-        testCompile("org.springframework.security:spring-security-test")
         testCompile("com.nhaarman:mockito-kotlin:1.6.0")
         testCompile("junit:junit:4.12")
-        testCompile "org.jetbrains.kotlin:kotlin-test-junit:1.3.21"
+        testCompile("org.jetbrains.kotlin:kotlin-test-junit:1.3.21")
 
         //spring
-        compile("org.springframework:spring-context-support")
+        compile("org.springframework:spring-context-support:5.1.5.RELEASE")
     }
 }
