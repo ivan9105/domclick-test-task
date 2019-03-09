@@ -1,0 +1,37 @@
+{
+  "companies": [
+    {
+      "id": 1,
+      "name": "Pepsi",
+      "links": [
+        {
+          "rel": "self",
+          "type": "GET",
+          "href": "http://127.0.0.1:8080/api/company/get/1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Coca Cola",
+      "links": [
+        {
+          "rel": "self",
+          "type": "GET",
+          "href": "http://127.0.0.1:8080/api/company/get/2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Sprite",
+      "links": [
+        {
+          "rel": "self",
+          "type": "GET",
+          "href": "http://127.0.0.1:8080/api/company/get/3"
+        }
+      ]
+    }
+  ]
+}
