@@ -52,19 +52,19 @@ abstract class AbstractControllerTest {
 
     fun Resource.getContent(charset: Charset = UTF_8) = this.inputStream.readContent(charset)
 
-    fun httpGetRequest(path: String) =
+    fun httpGetRequest(path: String, headers: HttpHeaders = HttpHeaders()) =
             restTemplate.exchange<String>(
                     url(path),
                     GET,
-                    HttpEntity<String>(null, HttpHeaders()),
+                    HttpEntity<String>(null, headers),
                     String::class
             )
 
-    fun httpPostRequest(path: String, body: Any?) =
+    fun httpPostRequest(path: String, body: Any?, headers: HttpHeaders = HttpHeaders()) =
             restTemplate.exchange<String>(
                     url(path),
                     POST,
-                    HttpEntity(body, HttpHeaders()),
+                    HttpEntity(body, headers),
                     String::class
             )
 

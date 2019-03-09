@@ -2,14 +2,13 @@ package com.domclick.dto
 
 import com.domclick.entity.User
 import java.io.Serializable
-import java.util.*
 
 open class UserDto(user: User) : Serializable {
     var id: Long? = null
     var firstName: String? = null
     var lastName: String? = null
     var middleName: String? = null
-    var links: ArrayList<LinkDto> = ArrayList()
+    var links: MutableList<LinkDto> = mutableListOf()
 
     init {
         this.id = user.id
