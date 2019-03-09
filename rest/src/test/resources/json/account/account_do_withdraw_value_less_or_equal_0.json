@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552059315568,
+  "status": 400,
+  "error": "Bad request error",
+  "message": "Value must be over than 0",
+  "path": "/api/account/withdraw"
+}

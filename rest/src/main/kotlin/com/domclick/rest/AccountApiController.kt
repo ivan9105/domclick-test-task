@@ -10,6 +10,7 @@ import com.domclick.utils.DtoBuilder
 import org.assertj.core.util.Lists
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.lang.String.format
 import javax.validation.Valid
 
 @RestController
@@ -52,7 +53,7 @@ class AccountApiController(
     private fun doGetAccount(@PathVariable(name = "id") id: Long): AccountDto {
         val accountOptional = accountService.findById(id)
         if (!accountOptional.isPresent) {
-            throw BadRequestException(String.format("Account with id '%s' not found", id))
+            throw BadRequestException(format("Account with id '%s' not found", id))
         }
         return dtoBuilder.buildAccountDto(accountOptional.get())
     }

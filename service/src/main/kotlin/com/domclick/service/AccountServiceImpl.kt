@@ -22,10 +22,10 @@ class AccountServiceImpl(
 
     override fun upsert(entity: Account) {
         val reload = if (entity.isNew()) Account() else accountRepository.findById(entity.id!!)
-                .orElseThrow { RuntimeException(String.format("Can not found Account with id '%s'", entity.id!!)) }
+                .orElseThrow { BadRequestException(String.format("Account with id '%s' not found", entity.id!!)) }
         reload.balance = entity.balance
         reload.user = userRepository.findById(entity.userId.toLong()).orElseThrow {
-            RuntimeException(format("Can not found User by id '%s'", entity.userId))
+            BadRequestException(format("User with id '%s' not found", entity.userId))
         }
 
         reload.updateUserId()
@@ -73,8 +73,7 @@ class AccountServiceImpl(
 
     @Throws(BadRequestException::class)
     private fun reloadAccount(accountId: Long) = accountRepository.findById(accountId).orElseThrow {
-        RuntimeException(
-                java.lang.String.format("Can not found account by id '%s'", accountId))
+        BadRequestException(format("Account with id '%s' not found", accountId))
     }
 
     @Throws(BadRequestException::class)

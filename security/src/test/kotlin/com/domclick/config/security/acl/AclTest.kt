@@ -1,7 +1,6 @@
 package com.domclick.config.security.acl
 
 import com.domclick.config.PersistenceConfig
-import com.domclick.config.properties.PersistenceProperties
 import com.domclick.config.security.config.acl.AclConfig
 import com.domclick.config.security.config.acl.AclMethodSecurityConfig
 import com.domclick.repository.AnswerRepository
@@ -36,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional
 @EnableJpaRepositories(basePackages = ["com.domclick.repository"])
 @ContextConfiguration(
         classes = [
-            PersistenceProperties::class, PersistenceConfig::class,
+            PersistenceConfig::class,
             AclConfig::class, AclMethodSecurityConfig::class
         ],
         loader = AnnotationConfigContextLoader::class

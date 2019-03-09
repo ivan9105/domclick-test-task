@@ -1,13 +1,11 @@
 package com.domclick.repository.common
 
 import com.domclick.config.PersistenceConfig
-import com.domclick.config.properties.PersistenceProperties
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
-import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager
 import org.springframework.boot.test.context.SpringBootTest
@@ -23,8 +21,8 @@ import javax.persistence.EntityManager
 @AutoConfigureDataJpa
 @AutoConfigureTestEntityManager
 @SpringBootTest(webEnvironment = NONE)
-@ContextConfiguration(classes = [PersistenceProperties::class, PersistenceConfig::class], loader = AnnotationConfigContextLoader::class)
-@ImportAutoConfiguration(exclude = [(FlywayAutoConfiguration::class)])
+@ContextConfiguration(classes = [PersistenceConfig::class], loader = AnnotationConfigContextLoader::class)
+@ImportAutoConfiguration(exclude = [])
 abstract class AbstractRepositoryTest {
     @Autowired
     lateinit var accountRepository: AccountRepository

@@ -43,7 +43,7 @@ class AccountServiceTest {
 
     @Test
     fun upsertAccountAlreadyExistsButNotFoundTest() {
-        expectRuntimeException("Can not found Account with id '1001'")
+        expectBadRequestException("Account with id '1001' not found")
 
         val account = getValidAccount(getValidUser()).apply { id = 1001L }
         whenever(accountRepository.findById(eq(account.id!!))).thenReturn(empty())
@@ -53,7 +53,7 @@ class AccountServiceTest {
 
     @Test
     fun upsertAccountAlreadyExistsButUserNotFoundTest() {
-        expectRuntimeException("Can not found User by id '1002'")
+        expectBadRequestException("User with id '1002' not found")
 
         val user = getValidUser().apply { id = 1002 }
         val account = getValidAccount(user).apply {
@@ -102,14 +102,14 @@ class AccountServiceTest {
 
     @Test
     fun transferFromAccountNotFoundTest() {
-        expectRuntimeException("Can not found account by id '-1'")
+        expectBadRequestException("Account with id '-1' not found")
 
         accountService.transfer(-1L, -2L, BigDecimal("1"))
     }
 
     @Test
     fun transferToAccountNotFoundTest() {
-        expectRuntimeException("Can not found account by id '-2'")
+        expectBadRequestException("Account with id '-2' not found")
 
         val account = getValidAccount(getValidUser()).apply { id = 5001L }
         whenever(accountRepository.findById(account.id!!)).thenReturn(of(account))
@@ -166,7 +166,7 @@ class AccountServiceTest {
 
     @Test
     fun withdrawAccountNotFoundTest() {
-        expectRuntimeException("Can not found account by id '-3'")
+        expectBadRequestException("Account with id '-3' not found")
         accountService.withdraw(-3L, BigDecimal("1"))
     }
 
@@ -206,7 +206,7 @@ class AccountServiceTest {
 
     @Test
     fun depositAccountNotFoundTest() {
-        expectRuntimeException("Can not found account by id '-4'")
+        expectBadRequestException("Account with id '-4' not found")
         accountService.deposit(-4L, BigDecimal("1"))
     }
 
@@ -227,11 +227,6 @@ class AccountServiceTest {
     private fun getValidAccount(user: User) = Account(BigDecimal("100.00"), user)
 
     private fun getValidUser() = User("Иван", "Иванов", "Иванович")
-
-    private fun expectRuntimeException(msg: String) {
-        expectedException.expect(RuntimeException::class.java)
-        expectedException.expectMessage(msg)
-    }
 
     private fun expectBadRequestException(msg: String) {
         expectedException.expect(BadRequestException::class.java)

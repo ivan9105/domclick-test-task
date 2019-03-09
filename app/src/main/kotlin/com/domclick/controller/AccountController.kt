@@ -1,6 +1,7 @@
 package com.domclick.controller
 
 import com.domclick.entity.Account
+import com.domclick.exception.BadRequestException
 import com.domclick.service.AccountService
 import com.domclick.service.UserService
 import org.springframework.stereotype.Controller
@@ -56,7 +57,6 @@ class AccountController(
 
     private fun findAccountById(id: Long) =
             accountService.findById(id).orElseThrow {
-                RuntimeException(
-                        format("Can not found account by id '%s'", id))
+                throw BadRequestException(format("Account with id '%s' not found", id))
             }
 }

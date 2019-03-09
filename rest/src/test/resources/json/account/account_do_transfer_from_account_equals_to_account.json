@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552059315568,
+  "status": 400,
+  "error": "Bad request error",
+  "message": "From account can not be equals to account",
+  "path": "/api/account/transfer"
+}

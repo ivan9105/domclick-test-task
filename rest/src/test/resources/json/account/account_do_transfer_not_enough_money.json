@@ -1,0 +1,7 @@
+{
+  "timestamp": 1552059315568,
+  "status": 400,
+  "error": "Bad request error",
+  "message": "On account with id '1' not enough money",
+  "path": "/api/account/transfer"
+}

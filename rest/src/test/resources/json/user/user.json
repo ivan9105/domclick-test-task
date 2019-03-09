@@ -13,7 +13,7 @@
   "accounts": [
     {
       "id": 1,
-      "balance": 100000.3,
+      "balance": 100000.30,
       "links": [
         {
           "rel": "self",
@@ -39,7 +39,7 @@
     },
     {
       "id": 0,
-      "balance": 15.5,
+      "balance": 15.50,
       "links": [
         {
           "rel": "self",

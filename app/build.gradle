@@ -17,11 +17,9 @@ bootJar {
 }
 
 dependencies {
-    compile project(":security")
     compile project(":elastic")
     compile project(":job")
     compile project(":rest")
-    compile project(":service")
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
