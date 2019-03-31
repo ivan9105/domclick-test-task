@@ -2,12 +2,13 @@ package com.domclick.client.oauth2
 
 import com.domclick.config.properties.oauth2.Oauth2Properties
 import com.domclick.dto.response.Oauth2AccessTokenResponse
-import com.unboundid.util.Base64.encode
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod.POST
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
+import java.nio.charset.StandardCharsets
+import java.util.*
 
 @Component
 class Oauth2Client(
@@ -53,9 +54,11 @@ class Oauth2Client(
         ).body!!
     }
 
-    private fun encodeBase64(clientId: String, clientSecret: String) = encode("$clientId:$clientSecret")
+    private fun encodeBase64(clientId: String, clientSecret: String) = Base64.getEncoder().encode(
+            "$clientId:$clientSecret".toByteArray(StandardCharsets.UTF_8)
+    )
 
     private fun getHeaders(clientId: String, clientSecret: String) = HttpHeaders().apply {
-        add("Authorization", "Basic ${encodeBase64(clientId, clientSecret)}")
+        add("Authorization", "Basic ${String(encodeBase64(clientId, clientSecret))}")
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapAutoConf
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.context.annotation.ComponentScan
 
-@SpringBootApplication(exclude = [(SecurityAutoConfiguration::class), (EmbeddedLdapAutoConfiguration::class), (LdapAutoConfiguration::class)])
+@SpringBootApplication(exclude = [SecurityAutoConfiguration::class, EmbeddedLdapAutoConfiguration::class, LdapAutoConfiguration::class])
 @ComponentScan(value = ["com.domclick"])
 class RestApplication {
     companion object {
