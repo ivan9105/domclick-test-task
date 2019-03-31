@@ -1,13 +1,12 @@
 package com.domclick.utils
 
-import com.domclick.dto.AccountDto
-import com.domclick.dto.LinkDto
-import com.domclick.dto.UserAccountsDto
-import com.domclick.dto.UserDto
+import com.domclick.dto.*
 import com.domclick.dto.response.AccountResponse
+import com.domclick.dto.response.CompanyResponse
 import com.domclick.dto.response.UserResponse
 import com.domclick.entity.Account
 import com.domclick.entity.User
+import com.domclick.entity.oauth2.Company
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -18,6 +17,16 @@ import org.springframework.util.CollectionUtils
 class DtoBuilder {
     @Value("\${server.url}")
     lateinit var serverUrl: String
+
+    fun buildCompanyResponse(companies: List<Company>): CompanyResponse {
+        val response = CompanyResponse()
+        companies.forEach { company ->
+            val companyDto = CompanyDto(company)
+            companyDto.links.add(LinkDto("self", "GET", serverUrl + "api/company/get/" + company.id))
+            response.companies.add(companyDto)
+        }
+        return response
+    }
 
     fun buildUserResponse(users: List<User>): UserResponse {
         val response = UserResponse()

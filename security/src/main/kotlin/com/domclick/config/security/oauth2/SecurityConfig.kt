@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @ConditionalOnProperty(name = ["security.protocol"], havingValue = "oauth2")
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @Import(Encoders::class)
 class SecurityConfig(
@@ -25,12 +25,13 @@ class SecurityConfig(
 ) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
-                .authorizeRequests().antMatchers("/api/oauth2/**").authenticated()
+                .authorizeRequests().antMatchers("/api/company/**").authenticated()
                 .and()
                 .authorizeRequests().antMatchers("/h2/**").permitAll()
 
         //use for enable h2 web client, todo use other vendor and disable it or add h2 profile and support some configuration files
         http.csrf().disable()
+        http.httpBasic().disable()
         http.headers().frameOptions().disable()
     }
 

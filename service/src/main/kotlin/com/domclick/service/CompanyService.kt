@@ -1,5 +1,5 @@
 package com.domclick.service
 
-interface CompanyService {
-    //Todo
-}
+import com.domclick.entity.oauth2.Company
+
+interface CompanyService : CrudService<Company, Long>
