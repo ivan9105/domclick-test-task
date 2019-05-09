@@ -2,6 +2,7 @@ package com.domclick.client.oauth2
 
 import com.domclick.app.RestApplication
 import com.domclick.config.properties.oauth2.Oauth2Properties
+import org.flywaydb.core.Flyway
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,6 +34,13 @@ class Oauth2ClientTest {
     @Autowired
     lateinit var client: Oauth2Client
 
+    @Autowired
+    lateinit var flyway: Flyway
+
+    companion object {
+        private var migrated = false
+    }
+
     @Rule
     @JvmField
     final val expectedException = ExpectedException.none()!!
@@ -41,6 +49,17 @@ class Oauth2ClientTest {
     fun init() {
         `when`(oauth2Properties.host).thenReturn("http://localhost")
         `when`(oauth2Properties.port).thenReturn(port.toString())
+    }
+
+    @Before
+    fun migrate() {
+        if (migrated) {
+            return
+        }
+
+        flyway.clean()
+        flyway.migrate()
+        migrated = true
     }
 
     @Test
