@@ -3,6 +3,8 @@ package com.domclick.repository.common
 import com.domclick.config.PersistenceConfig
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import org.flywaydb.core.Flyway
+import org.junit.Before
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
@@ -30,6 +32,24 @@ abstract class AbstractRepositoryTest {
     lateinit var userRepository: UserRepository
     @Autowired
     lateinit var em: EntityManager
+
+    @Autowired
+    lateinit var flyway: Flyway
+
+    companion object {
+        private var migrated = false
+    }
+
+    @Before
+    fun migrate() {
+        if (migrated) {
+            return
+        }
+
+        flyway.clean()
+        flyway.migrate()
+        migrated = true
+    }
 }
 
 //Todo testcontainers

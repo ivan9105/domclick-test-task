@@ -5,6 +5,8 @@ import com.domclick.entity.Account
 import com.domclick.entity.User
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import org.flywaydb.core.Flyway
+import org.junit.Before
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -40,6 +42,24 @@ abstract class AbstractControllerTest {
 
     @Autowired
     lateinit var userRepository: UserRepository
+
+    @Autowired
+    lateinit var flyway: Flyway
+
+    companion object {
+        private var migrated = false
+    }
+
+    @Before
+    fun migrate() {
+        if (migrated) {
+            return
+        }
+
+        flyway.clean()
+        flyway.migrate()
+        migrated = true
+    }
 
     protected fun url(path: String) = "http://localhost:$port$path"
 
