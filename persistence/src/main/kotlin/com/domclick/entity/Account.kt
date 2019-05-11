@@ -7,6 +7,7 @@ import javax.validation.constraints.PositiveOrZero
 
 @Entity
 @Table(name = "BANK_ACCOUNT")
+//Todo use data classes
 class Account(
         @NotNull(message = "Баланс не может быть пустым")
         @PositiveOrZero(message = "Баланс не может быть отрицательным")

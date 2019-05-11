@@ -1,0 +1,24 @@
+version: 1
+dn: ou=users,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+
+dn: cn=iipetrov,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: iipetrov
+sn: RnIpIA-ybp82
+userPassword:: e1NIQX1oMDdaL0xYZDJaRkpLV2N1b2ttalZDcFBtTWs9
+
+dn: cn=eadegtiarev,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: eadegtiarev
+sn: ulO2OprYRr2_
+userPassword:: e1NIQX1sYU0xdUVUZndWNUdpS0xMQnFETVhJRWlpK2s9
+

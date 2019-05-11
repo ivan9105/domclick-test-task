@@ -1,4 +1,4 @@
-package com.domclick.rest.security
+package com.domclick.rest.security.oauth2
 
 import com.domclick.client.oauth2.Oauth2Client
 import com.domclick.config.properties.oauth2.Oauth2Properties
