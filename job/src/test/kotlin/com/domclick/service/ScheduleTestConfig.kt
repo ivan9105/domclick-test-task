@@ -1,20 +1,16 @@
-package com.domclick.config
+package com.domclick.service
 
+import com.domclick.config.JobFactoryImpl
 import com.domclick.listener.JobListenerImpl
 import org.springframework.beans.factory.config.PropertiesFactoryBean
+import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
-import org.springframework.scheduling.annotation.EnableAsync
-import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.quartz.SchedulerFactoryBean
-import javax.sql.DataSource
 
-@Configuration
-@EnableAsync
-@EnableScheduling
-class ScheduleConfig {
+@TestConfiguration
+class ScheduleTestConfig {
 
     @Bean
     fun jobFactory(context: ApplicationContext) = JobFactoryImpl().apply {
@@ -29,12 +25,16 @@ class ScheduleConfig {
             }.getObject()!!
 
     @Bean
-    fun schedulerFactory(datasource: DataSource, jobFactory: JobFactoryImpl, listener: JobListenerImpl) =
+    fun schedulerFactory(jobFactory: JobFactoryImpl) =
             SchedulerFactoryBean().apply {
-                setDataSource(datasource)
                 setJobFactory(jobFactory)
                 setQuartzProperties(quartzProperties())
-                setGlobalJobListeners(listener)
-//                isAutoStartup = false
+                setGlobalJobListeners(JobListenerImpl())
             }
+
+    @Bean
+    fun jobManager(schedulerFactory: SchedulerFactoryBean) = JobManager(schedulerFactory)
+
+    @Bean
+    fun caiIntegrationService() = CaiIntegrationServiceImpl()
 }
