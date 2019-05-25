@@ -1,0 +1,8 @@
+{
+  "type": "CAI_FETCH_EVENTS",
+  "intervalInSeconds": 30,
+  "params": {
+    "startDate": "2017-05-01",
+    "endDate": "2019-01-01"
+  }
+}

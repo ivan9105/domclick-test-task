@@ -1,6 +1,5 @@
 package com.domclick.utils
 
-import com.domclick.entity.Account
 import com.domclick.entity.User
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
@@ -39,16 +38,5 @@ class DtoBuilderTest {
         assertEquals("self", res.users[0].links[0].rel)
         assertEquals("GET", res.users[0].links[0].type)
         assertEquals("http://localhost:9555/api/user/get/0", res.users[0].links[0].href)
-    }
-
-    @Test
-    fun buildUserAccountsDtoTest() {
-        val user = User().apply {
-            id = 0L
-            accounts = setOf(Account().apply {
-                id = 0L
-            })
-        }
-        //Todo
     }
 }

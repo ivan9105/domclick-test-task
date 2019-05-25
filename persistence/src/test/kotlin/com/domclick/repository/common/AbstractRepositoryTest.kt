@@ -24,7 +24,7 @@ import javax.persistence.EntityManager
 @AutoConfigureTestEntityManager
 @SpringBootTest(webEnvironment = NONE)
 @ContextConfiguration(classes = [PersistenceConfig::class], loader = AnnotationConfigContextLoader::class)
-@ImportAutoConfiguration(exclude = [])
+@ImportAutoConfiguration
 abstract class AbstractRepositoryTest {
     @Autowired
     lateinit var accountRepository: AccountRepository

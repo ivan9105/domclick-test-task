@@ -1,5 +1,11 @@
 dependencies {
+    compile project(":service")
+
     //quartz
     compile("org.quartz-scheduler:quartz:2.3.0")
     compile("org.jetbrains.kotlin:kotlin-reflect:1.3.21")
+    compile("org.springframework.boot:spring-boot-starter-web:2.1.3.RELEASE")
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
+    compile("commons-io:commons-io:2.6")
+    testCompile("org.skyscreamer:jsonassert:1.5.0")
 }
