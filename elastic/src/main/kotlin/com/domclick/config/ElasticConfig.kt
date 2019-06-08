@@ -1,47 +1,52 @@
 package com.domclick.config
 
+import com.domclick.config.properties.ElasticProperties
 import org.elasticsearch.client.Client
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
-import org.elasticsearch.common.transport.InetSocketTransportAddress
+import org.elasticsearch.common.transport.TransportAddress
 import org.elasticsearch.transport.client.PreBuiltTransportClient
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
+import java.lang.System.getProperty
 import java.net.InetAddress
 import java.net.UnknownHostException
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = ["com.domclick.repository.elastic"])
-@ComponentScan(basePackages = ["com.domclick.service.elastic"])
-class ElasticConfig {
-    @Value("\${elasticsearch.home}")
-    private val home: String? = null
+@EnableElasticsearchRepositories(basePackages = ["com.domclick.repository"])
+@ComponentScan(basePackages = ["com.domclick"])
+class ElasticConfig(
+        private val properties: ElasticProperties
+) {
 
-    @Value("\${elasticsearch.cluster.name}")
-    private val clusterName: String? = null
-
-    @Value("\${elasticsearch.host}")
-    private val host: String? = null
-
-    @Value("\${elasticsearch.port}")
-    private val port: Int? = null
+    companion object {
+        const val CLUSTER_NAME = "cluster.name"
+        const val CONTAINER_HOST = "elasticsearch.host"
+        const val CONTAINER_PORT = "elasticsearch.port"
+    }
 
     @Bean
-    fun client(): Client {
+    fun elasticClient(): Client {
         var client: TransportClient? = null
         try {
-            val elasticsearchSettings = Settings.builder()
-                    .put("client.transport.sniff", true)
-                    .put("path.home", home)
-                    .put("cluster.name", clusterName).build()
-            client = PreBuiltTransportClient(elasticsearchSettings)
-            client.addTransportAddress(InetSocketTransportAddress(InetAddress.getByName(host), port!!))
-        } catch (e : UnknownHostException) {
+            val settings = Settings.builder()
+                    .put(CLUSTER_NAME, properties.cluster)
+                    .build()
+            client = PreBuiltTransportClient(settings)
+            client.addTransportAddress(TransportAddress(InetAddress.getByName(getHost()), getPort()))
+        } catch (e: UnknownHostException) {
             e.printStackTrace()
         }
         return client!!
     }
+
+    private fun getPort() = if (getProperty(CONTAINER_PORT) != null) getProperty(CONTAINER_PORT).toInt() else properties.port!!
+
+    private fun getHost() = if (getProperty(CONTAINER_HOST) != null) getProperty(CONTAINER_HOST) else properties.host
+
+    @Bean
+    fun elasticsearchTemplate() = ElasticsearchTemplate(elasticClient())
 }

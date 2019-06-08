@@ -17,7 +17,6 @@ bootJar {
 }
 
 dependencies {
-    compile project(":elastic")
     compile project(":job")
     compile project(":rest")
 

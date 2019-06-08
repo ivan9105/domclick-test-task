@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserDataRepository : ElasticsearchRepository<UserData, String> {
-    fun findByFirstName(name: String, pageable: Pageable): Page<UserData>
+    fun findByFirstName(firstName: String, pageable: Pageable): Page<UserData>
 
-    @Query("{\"bool\": {\"must\": {\"match_all\": {}}, \"filter\": {\"term\": {\"tags\": \"?0\" }}}}")
-    fun findByFilteredTagQuery(tag: String, pageable: Pageable): Page<UserData>
+    @Query("{\"nested\":{\"path\":\"tags\",\"query\":{\"bool\":{\"must\":[{\"match\":{\"tags.value\":\"?0\"}}]}}}}")
+    fun findByTagValue(tagValue: String, pageable: Pageable): Page<UserData>
+
+    @Query("{\"bool\":{\"must\":[{\"nested\":{\"path\":\"tags\",\"query\":{\"bool\":{\"must\":[{\"match\":{\"tags.value\":\"?0\"}}]}}}},{\"match\":{\"firstName\":\"?1\"}}]}}")
+    fun findByTagValueAndFirstName(tagValue: String, firstName: String, pageable: Pageable): Page<UserData>
 }
