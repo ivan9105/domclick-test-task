@@ -86,10 +86,10 @@ class AclTest {
 
     private fun expectAccessDenied(id: Long) {
         expectedException.expect(AccessDeniedException::class.java)
-        expectedException.expectMessage("Доступ запрещен")
+        expectedException.expectMessage("Access is denied")
         answerRepository.save(
                 answerRepository.findById(id).get().apply {
-                    content = "Доступ запрещен"
+                    content = "Access is denied"
                 }
         )
     }

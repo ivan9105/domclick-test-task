@@ -5,7 +5,7 @@ import com.domclick.config.ElasticConfig.Companion.CONTAINER_HOST
 import com.domclick.config.ElasticConfig.Companion.CONTAINER_PORT
 import com.domclick.config.properties.ElasticProperties
 import com.domclick.container.ElasticsearchContainer
-import com.domclick.container.ElasticsearchContainer.ELASTICSEARCH_DEFAULT_TCP_PORT
+import com.domclick.container.ElasticsearchContainer.Companion.ELASTICSEARCH_DEFAULT_TCP_PORT
 import com.domclick.entity.AccountData
 import com.domclick.entity.TagData
 import com.domclick.entity.UserData
