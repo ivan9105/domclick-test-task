@@ -2,7 +2,6 @@ package com.domclick.service
 
 import com.domclick.entity.UserData
 import com.domclick.repository.UserDataRepository
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.elasticsearch.action.search.SearchType
@@ -24,8 +23,7 @@ import java.math.BigDecimal
 @Service
 class UserDataService(
         private val repository: UserDataRepository,
-        private val elasticsearchTemplate: ElasticsearchTemplate,
-        private val objectMapper: ObjectMapper
+        private val elasticsearchTemplate: ElasticsearchTemplate
 ) {
 
     companion object {

@@ -289,7 +289,44 @@ GET /domclick/user_data/_search?size=0
 }
 ```
 
-//Todo
+AVG with weight using `Script`
 
-
-
+```
+POST /domclick/user_data/_search
+{
+    "size": 0,
+    "aggs" : {
+        "weighted_grade": {
+            "weighted_avg": {
+                "value": {
+                    "script": """
+                      //if (doc['grade'] == 3) {
+                        //return 100
+                      //} else if (doc['grade'].value == 2) //{
+                        //return 200
+                      //} //TODO ROLE == GRADE, ADMIN = 5 and etc.
+                      return 1
+                      //TODO https://discuss.elastic.co/t/painless-script-caching/175257/2
+                    """
+                },
+                "weight": {
+                    "script": """
+                      //if (doc['grade'].value == 1) { //TODO IF ROLE == ADMIN * 2 and etc
+                    //    return 10
+                     // } else if (doc['grade'].value == 2) {
+                    //    return 20
+                     // } else if (doc['grade'].value == 3) {
+                    //    return 30
+                    //  } else if (doc['grade'].value == 4) {
+                    //    return 40
+                    //  }
+                      return 5
+                    """
+                }
+            }
+        }
+    }
+}
+```
+//TODO
+((1*10) + (2*20) + (3*30) + (4*40) + ( 5*50)) / (10+20+30+40+50) == result
