@@ -4,6 +4,9 @@ dependencies {
 
     //The latest version 3.2.0.M4 of spring-boot-data-elastic supports ES 6.7.2
     compile("org.springframework.data:spring-data-elasticsearch:3.2.0.M4")
+
+    compile("com.google.code.gson:gson:2.8.5")
+
     testCompile("org.springframework:spring-test:5.1.7.RELEASE")
     testCompile("org.testcontainers:elasticsearch:1.11.3")
     testCompile("org.springframework.boot:spring-boot-starter-test:2.1.5.RELEASE")

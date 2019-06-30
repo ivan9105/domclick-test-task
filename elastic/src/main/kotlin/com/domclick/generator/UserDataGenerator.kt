@@ -29,7 +29,7 @@ class UserDataGenerator(
                                 lastName = lastNames[random.nextInt(lastNames.size)]
                                 middleName = middleNames[random.nextInt(middleNames.size)]
                                 tags = setOf(TagData().apply { value = tagArr[random.nextInt(tagArr.size)] })
-                                accounts = setOf(AccountData().apply { value = random.nextDouble() })
+                                accounts = setOf(AccountData().apply { balance = random.nextDouble() })
                             }
                     )
             )
