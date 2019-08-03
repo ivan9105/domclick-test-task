@@ -1,6 +1,4 @@
 dependencies {
     compile project(":persistence")
     compile project(":global")
-
-    compile('io.github.microutils:kotlin-logging:1.6.24')
 }

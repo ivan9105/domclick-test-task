@@ -7,8 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 @Configuration
 class Encoders {
     @Bean
-    fun oauthClientPasswordEncoder() = BCryptPasswordEncoder(4)
+    fun bCryptFourStrengthEncoder() = BCryptPasswordEncoder(4)
 
     @Bean
-    fun userPasswordEncoder() = BCryptPasswordEncoder(8)
+    fun bCryptEightStrengthEncoder() = BCryptPasswordEncoder(8)
 }

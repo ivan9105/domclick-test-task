@@ -135,6 +135,49 @@ Spring Boot, H2 database, Hibernate, Spring MVC, Spring Data JPA, Bootstrap, Thy
 * Todo
 
 
+## JWT ##
+
+Jwt example
+
+try to execute GET request:
+
+  ```
+curl -X GET "http://127.0.0.1:8080/api/company/list" -H  "accept: */*"
+  ```
+
+request will be returned:
+
+  ```
+{"timestamp":1565372887123,"status":403,"error":"Forbidden","message":"Access Denied","path":"/api/company/list"}
+  ```
+
+you need generate jwt token using credentials:
+
+  ```
+curl -X POST "http://127.0.0.1:8080/api/token/generate" -H  "accept: */*" -H  "Content-Type: application/json" -d "{  \"username\": \"ivan9105\",  \"password\": \"ivan9105\"}"
+  ```
+
+request will be returned:
+
+  ```
+{
+  "username": "ivan9105",
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpdmFuOTEwNSIsInNjb3BlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaXNzIjoiaHR0cDovL2RvbWNsaWNrLmNvbSIsImlhdCI6MTU2NTM3MjgzOCwiZXhwIjoxNTY1MzcyODQxfQ.K0UmxPAgObSgDDcRpY4fQs1G2i3wfPuAVXVbyiPt6J8"
+}
+  ```
+
+you need use "Authorization: Bearer $token" in you GET request:
+
+  ```
+curl -X GET "http://127.0.0.1:8080/api/company/list" -H  "accept: */*" -H  "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpdmFuOTEwNSIsInNjb3BlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9XSwiaXNzIjoiaHR0cDovL2RvbWNsaWNrLmNvbSIsImlhdCI6MTU2NTM3MzE0OSwiZXhwIjoxNTY1Mzc2NzQ5fQ.dOEN4pwngO6fs7Xqf-2ZmbBQiGtWyTY_jy1kmZnkk9s"
+  ```
+
+You can use it for parse token and seeing details using this is resource:
+
+  ```
+https://jwt.io/
+  ```
+
 ## ACL ##
 
 В application.properties

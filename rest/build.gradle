@@ -20,4 +20,6 @@ dependencies {
     testCompile("org.apache.directory.server:apacheds-server-jndi:1.5.5")
     testCompile("org.apache.directory.shared:shared-ldap:0.9.15")
     testCompile("org.springframework.security:spring-security-test:5.1.4.RELEASE")
+
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 }

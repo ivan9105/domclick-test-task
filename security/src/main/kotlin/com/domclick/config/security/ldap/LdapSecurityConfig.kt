@@ -1,12 +1,10 @@
 package com.domclick.config.security.ldap
 
-import com.domclick.config.security.encryption.Encoders
 import com.domclick.config.security.ldap.client.LdapClient.Companion.USER_PASSWORD_ENCODED_NAME_ATTR
 import com.domclick.config.security.ldap.encoder.LdapShaPasswordEncoder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.SecurityProperties.BASIC_AUTH_ORDER
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Import
 import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -17,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity(debug = true)
 @Order(BASIC_AUTH_ORDER)
-@Import(Encoders::class)
 class LdapSecurityConfig(
         private val properties: LdapSecurityProperties
 ) : WebSecurityConfigurerAdapter() {

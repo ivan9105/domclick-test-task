@@ -1,0 +1,15 @@
+package com.domclick.entity.jwt
+
+import com.domclick.entity.IdentifierEntity
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Table
+
+@Entity
+@Table(name = "JWT_USER")
+class JwtUser : IdentifierEntity() {
+    @Column
+    var username: String? = null
+    @Column
+    var password: String? = null
+}
