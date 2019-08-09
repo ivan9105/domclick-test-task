@@ -26,7 +26,7 @@ class AuthServerOAuth2Config(
         private val dataSource: DataSource,
         private val authenticationManager: AuthenticationManager,
         private val userDetailsService: UserDetailsService,
-        private val oauthClientPasswordEncoder: PasswordEncoder
+        private val bCryptFourStrengthEncoder: PasswordEncoder
 ) : AuthorizationServerConfigurerAdapter() {
 
     @Bean
@@ -36,7 +36,10 @@ class AuthServerOAuth2Config(
     fun oauthAccessDeniedHandler() = OAuth2AccessDeniedHandler()
 
     override fun configure(oauthServer: AuthorizationServerSecurityConfigurer) {
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").passwordEncoder(oauthClientPasswordEncoder)
+        oauthServer
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
+                .passwordEncoder(bCryptFourStrengthEncoder)
     }
 
     override fun configure(clients: ClientDetailsServiceConfigurer) {

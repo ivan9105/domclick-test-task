@@ -17,4 +17,6 @@ dependencies {
     //db
     compile("com.h2database:h2:1.4.197")
     compile("org.postgresql:postgresql:42.2.5")
+
+    compile('io.github.microutils:kotlin-logging:1.6.24')
 }
