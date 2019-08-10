@@ -48,7 +48,7 @@ class UserDataServiceTest {
 
         @BeforeClass
         @JvmStatic
-        fun init() {
+        fun init() {  //Todo use initializer
             setProperty(CONTAINER_HOST, container.containerIpAddress)
             setProperty(CONTAINER_PORT, container.getMappedPort(ELASTICSEARCH_DEFAULT_TCP_PORT).toString())
         }

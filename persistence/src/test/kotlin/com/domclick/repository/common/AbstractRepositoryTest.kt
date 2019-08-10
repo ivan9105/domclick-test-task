@@ -9,7 +9,6 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE
 import org.springframework.context.annotation.PropertySource
@@ -21,7 +20,6 @@ import javax.persistence.EntityManager
 @RunWith(SpringRunner::class)
 @PropertySource("classpath:application-test.properties")
 @AutoConfigureDataJpa
-@AutoConfigureTestEntityManager
 @SpringBootTest(webEnvironment = NONE)
 @ContextConfiguration(classes = [PersistenceConfig::class], loader = AnnotationConfigContextLoader::class)
 @ImportAutoConfiguration
