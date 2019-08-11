@@ -1,8 +1,8 @@
 package com.domclick.rest.common
 
 import com.domclick.app.RestApplication
-import com.domclick.entity.Account
-import com.domclick.entity.User
+import com.domclick.entity.AccountEntity
+import com.domclick.entity.UserEntity
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
 import org.flywaydb.core.Flyway
@@ -128,14 +128,14 @@ abstract class AbstractControllerTest {
                     .replace(ID_REGEX, "\"id\":1,")
                     .replace(GET_ID_REGEX, "get/1")
 
-    fun createValidUser() = userRepository.save(User("Иванов", "Иван", "Иванович"))
+    fun createValidUser() = userRepository.save(UserEntity("Иванов", "Иван", "Иванович"))
 
     fun createValidAccount(
             balance: BigDecimal = BigDecimal(10)
-    ) = accountRepository.save(Account(balance, createValidUser()))
+    ) = accountRepository.save(AccountEntity(balance, createValidUser()))
 
-    fun deleteAccount(account: Account) = accountRepository.delete(reloadAccount(account))
+    fun deleteAccount(account: AccountEntity) = accountRepository.delete(reloadAccount(account))
 
-    fun reloadAccount(account: Account) = accountRepository.findById(account.id!!).get()
+    fun reloadAccount(account: AccountEntity) = accountRepository.findById(account.id!!).get()
 
 }

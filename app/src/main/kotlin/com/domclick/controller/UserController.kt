@@ -1,6 +1,6 @@
 package com.domclick.controller
 
-import com.domclick.entity.User
+import com.domclick.entity.UserEntity
 import com.domclick.service.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -22,12 +22,12 @@ class UserController(private val userService: UserService) {
 
     @GetMapping(value = ["/users/edit", "/users/edit/{id}"])
     fun userEditForm(model: Model, @PathVariable(required = false, name = "id") id: Long?): String {
-        model.addAttribute("user", if (id != null) findUserById(id) else User())
+        model.addAttribute("user", if (id != null) findUserById(id) else UserEntity())
         return "user/edit"
     }
 
     @PostMapping(value = ["/users/edit"])
-    fun doUserEdit(model: Model, @Valid user: User, bindingResult: BindingResult): String {
+    fun doUserEdit(model: Model, @Valid user: UserEntity, bindingResult: BindingResult): String {
         if (bindingResult.hasErrors()) {
             return "user/edit"
         }

@@ -1,9 +1,9 @@
 package com.domclick.repository.jwt
 
-import com.domclick.entity.jwt.JwtUser
+import com.domclick.entity.jwt.JwtUserEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
-interface JwtUserRepository : CrudRepository<JwtUser, Long> {
-    fun findByUsername(username: String): Optional<JwtUser>
+interface JwtUserRepository : CrudRepository<JwtUserEntity, Long> {
+    fun findByUsername(username: String): Optional<JwtUserEntity>
 }

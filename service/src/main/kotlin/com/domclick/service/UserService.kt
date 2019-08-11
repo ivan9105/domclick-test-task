@@ -1,7 +1,7 @@
 package com.domclick.service
 
-import com.domclick.entity.User
+import com.domclick.entity.UserEntity
 
-interface UserService : CrudService<User, Long> {
-    fun findUserAccountsById(id: Long) : User?
+interface UserService : CrudService<UserEntity, Long> {
+    fun findUserAccountsById(id: Long) : UserEntity?
 }

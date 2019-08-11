@@ -1,9 +1,9 @@
 package com.domclick.repository.utils
 
-import com.domclick.entity.Account
-import com.domclick.entity.User
+import com.domclick.entity.AccountEntity
+import com.domclick.entity.UserEntity
 import java.math.BigDecimal
 
-fun getValidUser() = User("Иванов", "Иван", "Иванович")
+fun getValidUser() = UserEntity("Иванов", "Иван", "Иванович")
 
-fun getValidAccount(user: User) = Account(BigDecimal(10), user)
+fun getValidAccount(user: UserEntity) = AccountEntity(BigDecimal(10), user)

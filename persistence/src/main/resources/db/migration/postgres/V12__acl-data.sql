@@ -4,7 +4,7 @@ INSERT INTO acl_sid (principal, sid) VALUES
     (0, 'TEXT_WRITER');
 
 INSERT INTO acl_class (class) VALUES
-    ('com.domclick.entity.acl.Answer');
+    ('com.domclick.entity.acl.AnswerEntity');
 
 INSERT INTO acl_object_identity (object_id_class, object_id_identity, parent_object, owner_sid, entries_inheriting) VALUES
     (1, 1, NULL, 3, 0),

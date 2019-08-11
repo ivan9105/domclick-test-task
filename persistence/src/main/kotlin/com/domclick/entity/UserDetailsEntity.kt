@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "USER_", uniqueConstraints = [(UniqueConstraint(columnNames = arrayOf("USER_NAME")))])
-class UserDetails : IdentifierEntity(), UserDetails {
+class UserDetailsEntity : IdentifierEntity(), UserDetails {
     @Column(name = "USER_NAME")
     private var username: String? = null
 
@@ -31,7 +31,7 @@ class UserDetails : IdentifierEntity(), UserDetails {
             joinColumns = [(JoinColumn(name = "USER_ID", referencedColumnName = "ID"))],
             inverseJoinColumns = [(JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"))])
     @OrderBy
-    private var authorities: Collection<Authority> = mutableSetOf()
+    private var authorities: Collection<AuthorityEntity> = mutableSetOf()
 
     override fun getAuthorities() = authorities
 
