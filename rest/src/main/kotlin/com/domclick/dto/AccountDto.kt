@@ -1,11 +1,11 @@
 package com.domclick.dto
 
-import com.domclick.entity.Account
+import com.domclick.entity.AccountEntity
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
 
-class AccountDto(account: Account) : Serializable {
+class AccountDto(account: AccountEntity) : Serializable {
     var id: Long? = null
     var balance: BigDecimal? = null
     var links: ArrayList<LinkDto> = ArrayList()

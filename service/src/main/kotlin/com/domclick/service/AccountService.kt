@@ -1,11 +1,11 @@
 package com.domclick.service
 
-import com.domclick.entity.Account
+import com.domclick.entity.AccountEntity
 import com.domclick.exception.BadRequestException
 import java.math.BigDecimal
 import java.util.*
 
-interface AccountService : CrudService<Account, Long> {
+interface AccountService : CrudService<AccountEntity, Long> {
     /**
      * Transfer money from one account to another account
      * If account has incorrect state throws bad request exception
@@ -35,5 +35,5 @@ interface AccountService : CrudService<Account, Long> {
     @Throws(BadRequestException::class)
     fun deposit(accountId: Long, value: BigDecimal)
 
-    fun findAccountByIdWithLock(accountId: Long) : Optional<Account>
+    fun findAccountByIdWithLock(accountId: Long) : Optional<AccountEntity>
 }

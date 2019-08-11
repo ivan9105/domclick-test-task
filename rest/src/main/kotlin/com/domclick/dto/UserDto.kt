@@ -1,9 +1,9 @@
 package com.domclick.dto
 
-import com.domclick.entity.User
+import com.domclick.entity.UserEntity
 import java.io.Serializable
 
-open class UserDto(user: User) : Serializable {
+open class UserDto(user: UserEntity) : Serializable {
     var id: Long? = null
     var firstName: String? = null
     var lastName: String? = null

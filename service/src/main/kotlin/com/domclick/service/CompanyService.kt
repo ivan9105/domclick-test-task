@@ -1,5 +1,5 @@
 package com.domclick.service
 
-import com.domclick.entity.oauth2.Company
+import com.domclick.entity.oauth2.CompanyEntity
 
-interface CompanyService : CrudService<Company, Long>
+interface CompanyService : CrudService<CompanyEntity, Long>

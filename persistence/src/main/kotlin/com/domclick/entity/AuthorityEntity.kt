@@ -8,7 +8,7 @@ import javax.persistence.UniqueConstraint
 
 @Entity
 @Table(name = "AUTHORITY", uniqueConstraints = [(UniqueConstraint(columnNames = arrayOf("NAME")))])
-class Authority : IdentifierEntity(), GrantedAuthority {
+class AuthorityEntity : IdentifierEntity(), GrantedAuthority {
 
     @Column(name = "NAME")
     private val name: String? = null
