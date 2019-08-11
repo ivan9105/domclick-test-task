@@ -8,6 +8,8 @@ import com.domclick.repository.UserRepository
 import org.flywaydb.core.Flyway
 import org.junit.Before
 import org.junit.runner.RunWith
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode.LENIENT
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,9 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner
 import java.io.InputStream
 import java.math.BigDecimal
 import java.nio.charset.Charset
-import kotlin.test.assertEquals
 import kotlin.text.Charsets.UTF_8
-
+//Todo убыстрить тесты исп отдельные конфиги и исп моки на репозитории
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [RestApplication::class], webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
@@ -89,23 +90,22 @@ abstract class AbstractControllerTest {
             )
 
     fun assertJson(expected: String, actual: String) {
-        assertEquals(
-                expected.replaceLineBreaksAndSpaces(),
-                actual.replaceLineBreaksAndSpaces()
-        )
+        JSONAssert.assertEquals(expected, actual, LENIENT)
     }
 
     fun assertJsonWithTimestamp(expected: String, actual: String) {
-        assertEquals(
+        JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndTimeStamp(),
-                actual.replaceLineBreaksAndSpacesAndTimeStamp()
+                actual.replaceLineBreaksAndSpacesAndTimeStamp(),
+                LENIENT
         )
     }
 
     fun assertJsonWithId(expected: String, actual: String) {
-        assertEquals(
+        JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndId(),
-                actual.replaceLineBreaksAndSpacesAndId()
+                actual.replaceLineBreaksAndSpacesAndId(),
+                LENIENT
         )
     }
 

@@ -1,4 +1,4 @@
-package com.domclick.service
+package com.domclick.service.impl
 
 import com.domclick.repository.UserDetailsRepository
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression

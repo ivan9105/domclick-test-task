@@ -17,7 +17,7 @@ data class CompanyEntity(
 
 ) : BaseEntity() {
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [(CascadeType.REMOVE)], orphanRemoval = true)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = [(CascadeType.ALL)], orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    var departments: Set<DepartmentEntity> = mutableSetOf()
+    var departments: MutableList<DepartmentEntity> = mutableListOf()
 }

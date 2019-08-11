@@ -2,6 +2,7 @@ package com.domclick.service
 
 import com.domclick.config.JobFactoryImpl
 import com.domclick.listener.JobListenerImpl
+import com.domclick.service.impl.CaiIntegrationServiceImpl
 import org.springframework.beans.factory.config.PropertiesFactoryBean
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.ApplicationContext
