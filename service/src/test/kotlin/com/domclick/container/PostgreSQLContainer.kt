@@ -1,5 +1,7 @@
 package com.domclick.container
 
+import org.testcontainers.containers.JdbcDatabaseContainer
+import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy
 import java.time.Duration
 import java.time.temporal.ChronoUnit.SECONDS
 
