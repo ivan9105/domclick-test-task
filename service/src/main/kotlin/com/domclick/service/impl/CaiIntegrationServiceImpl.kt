@@ -1,5 +1,6 @@
-package com.domclick.service
+package com.domclick.service.impl
 
+import com.domclick.service.CaiIntegrationService
 import mu.KLogging
 import org.springframework.stereotype.Service
 import java.lang.Thread.sleep

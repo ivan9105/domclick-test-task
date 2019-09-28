@@ -12,13 +12,13 @@
   ],
   "accounts": [
     {
-      "id": 1,
-      "balance": 100000.30,
+      "id": 0,
+      "balance": 15.50,
       "links": [
         {
           "rel": "self",
           "type": "GET",
-          "href": "http://127.0.0.1:8080/api/account/get/1"
+          "href": "http://127.0.0.1:8080/api/account/get/0"
         },
         {
           "rel": "deposit",
@@ -38,13 +38,13 @@
       ]
     },
     {
-      "id": 0,
-      "balance": 15.50,
+      "id": 1,
+      "balance": 100000.30,
       "links": [
         {
           "rel": "self",
           "type": "GET",
-          "href": "http://127.0.0.1:8080/api/account/get/0"
+          "href": "http://127.0.0.1:8080/api/account/get/1"
         },
         {
           "rel": "deposit",

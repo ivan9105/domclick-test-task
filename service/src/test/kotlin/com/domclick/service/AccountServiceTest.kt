@@ -5,6 +5,7 @@ import com.domclick.entity.UserEntity
 import com.domclick.exception.BadRequestException
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import com.domclick.service.impl.AccountServiceImpl
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify

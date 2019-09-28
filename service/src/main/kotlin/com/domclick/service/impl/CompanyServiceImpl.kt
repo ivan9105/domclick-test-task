@@ -1,8 +1,10 @@
-package com.domclick.service
+package com.domclick.service.impl
 
 import com.domclick.entity.oauth2.CompanyEntity
 import com.domclick.exception.RollbackException
 import com.domclick.repository.CompanyRepository
+import com.domclick.service.CompanyService
+import com.domclick.service.CrudServiceImpl
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

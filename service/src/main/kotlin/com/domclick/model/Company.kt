@@ -1,5 +1,7 @@
 package com.domclick.model
 
 data class Company(
-        val name: String
+        val id: Long?,
+        var name: String,
+        val departments: MutableList<Department> = mutableListOf()
 )
