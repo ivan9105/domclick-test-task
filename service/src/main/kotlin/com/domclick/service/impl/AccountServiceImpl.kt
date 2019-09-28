@@ -1,10 +1,12 @@
-package com.domclick.service
+package com.domclick.service.impl
 
-import com.domclick.entity.Account
+import com.domclick.entity.AccountEntity
 import com.domclick.exception.BadRequestException
 import com.domclick.exception.RollbackException
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import com.domclick.service.AccountService
+import com.domclick.service.CrudServiceImpl
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,12 +18,12 @@ import java.math.BigDecimal
 class AccountServiceImpl(
         private val accountRepository: AccountRepository,
         private val userRepository: UserRepository
-) : CrudServiceImpl<Account, Long>(), AccountService {
+) : CrudServiceImpl<AccountEntity, Long>(), AccountService {
 
     override fun findAccountByIdWithLock(accountId: Long) = accountRepository.findById(accountId)
 
-    override fun upsert(entity: Account) {
-        val reload = if (entity.isNew()) Account() else accountRepository.findById(entity.id!!)
+    override fun upsert(entity: AccountEntity) {
+        val reload = if (entity.isNew()) AccountEntity() else accountRepository.findById(entity.id!!)
                 .orElseThrow { BadRequestException(String.format("Account with id '%s' not found", entity.id!!)) }
         reload.balance = entity.balance
         reload.user = userRepository.findById(entity.userId.toLong()).orElseThrow {
@@ -33,7 +35,7 @@ class AccountServiceImpl(
         save(reload)
     }
 
-    override fun getRepository(): CrudRepository<Account, Long> = accountRepository
+    override fun getRepository(): CrudRepository<AccountEntity, Long> = accountRepository
 
     @Throws(BadRequestException::class)
     override fun transfer(fromAccountId: Long, toAccountId: Long, value: BigDecimal) {
@@ -84,7 +86,7 @@ class AccountServiceImpl(
     }
 
     @Throws(BadRequestException::class)
-    private fun validateWithdrawPossibility(value: BigDecimal, account: Account) {
+    private fun validateWithdrawPossibility(value: BigDecimal, account: AccountEntity) {
         if (account.balance!!.subtract(value).toDouble() < 0) {
             throw BadRequestException(String.format("On account with id '%s' not enough money", account.id))
         }

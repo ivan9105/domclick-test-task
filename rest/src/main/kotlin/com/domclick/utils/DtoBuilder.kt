@@ -4,9 +4,9 @@ import com.domclick.dto.*
 import com.domclick.dto.response.AccountResponse
 import com.domclick.dto.response.CompanyResponse
 import com.domclick.dto.response.UserResponse
-import com.domclick.entity.Account
-import com.domclick.entity.User
-import com.domclick.entity.oauth2.Company
+import com.domclick.entity.AccountEntity
+import com.domclick.entity.UserEntity
+import com.domclick.entity.oauth2.CompanyEntity
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -18,7 +18,7 @@ class DtoBuilder {
     @Value("\${server.url}")
     lateinit var serverUrl: String
 
-    fun buildCompanyResponse(companies: List<Company>): CompanyResponse {
+    fun buildCompanyResponse(companies: List<CompanyEntity>): CompanyResponse {
         val response = CompanyResponse()
         companies.forEach { company ->
             val companyDto = CompanyDto(company)
@@ -28,7 +28,7 @@ class DtoBuilder {
         return response
     }
 
-    fun buildUserResponse(users: List<User>): UserResponse {
+    fun buildUserResponse(users: List<UserEntity>): UserResponse {
         val response = UserResponse()
         users.forEach { user ->
             val userDto = UserDto(user)
@@ -39,7 +39,7 @@ class DtoBuilder {
         return response
     }
 
-    fun buildUserAccountsDto(user: User): UserAccountsDto {
+    fun buildUserAccountsDto(user: UserEntity): UserAccountsDto {
         val res = UserAccountsDto(user)
         res.links.add(LinkDto("self", "GET", serverUrl + "api/user/get/" + user.id))
         if (!CollectionUtils.isEmpty(user.accounts)) {
@@ -48,7 +48,7 @@ class DtoBuilder {
         return res
     }
 
-    fun buildAccountResponse(accounts: List<Account>): AccountResponse {
+    fun buildAccountResponse(accounts: List<AccountEntity>): AccountResponse {
         val response = AccountResponse()
         if (!CollectionUtils.isEmpty(accounts)) {
             accounts.forEach { account -> response.accounts.add(buildAccountDto(account)) }
@@ -56,7 +56,7 @@ class DtoBuilder {
         return response
     }
 
-    fun buildAccountDto(account: Account): AccountDto {
+    fun buildAccountDto(account: AccountEntity): AccountDto {
         val res = AccountDto(account)
         res.links.add(LinkDto("self", "GET", serverUrl + "api/account/get/" + account.id))
         res.links.add(LinkDto("deposit", "POST", serverUrl + "api/account/deposit"))

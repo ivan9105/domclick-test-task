@@ -1,4 +1,6 @@
 dependencies {
     compile project(":persistence")
     compile project(":global")
+
+    testCompile('org.testcontainers:postgresql:1.11.3')
 }

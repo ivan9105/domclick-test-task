@@ -1,6 +1,6 @@
 package com.domclick.utils
 
-import com.domclick.entity.User
+import com.domclick.entity.UserEntity
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -21,7 +21,7 @@ class DtoBuilderTest {
 
     @Test
     fun buildUserResponseTest() {
-        val user = User().apply {
+        val user = UserEntity().apply {
             id = 0L
             firstName = "Ivan"
             lastName = "Ivanov"

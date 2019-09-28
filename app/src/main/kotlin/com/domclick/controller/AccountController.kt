@@ -1,6 +1,6 @@
 package com.domclick.controller
 
-import com.domclick.entity.Account
+import com.domclick.entity.AccountEntity
 import com.domclick.exception.BadRequestException
 import com.domclick.service.AccountService
 import com.domclick.service.UserService
@@ -27,7 +27,7 @@ class AccountController(
 
     @GetMapping(value = ["/accounts/edit", "/accounts/edit/{id}"])
     fun accountEditForm(model: Model, @PathVariable(required = false, name = "id") id: Long?): String {
-        val account = if (id != null) findAccountById(id) else Account()
+        val account = if (id != null) findAccountById(id) else AccountEntity()
 
         model.addAttribute("account", account)
         model.addAttribute("users", userService.findAll())
@@ -36,7 +36,7 @@ class AccountController(
     }
 
     @PostMapping(value = ["/accounts/edit"])
-    fun doAccountEdit(model: Model, @Valid account: Account, bindingResult: BindingResult): String {
+    fun doAccountEdit(model: Model, @Valid account: AccountEntity, bindingResult: BindingResult): String {
         if (bindingResult.hasErrors()) {
             return "account/edit"
         }
@@ -57,6 +57,6 @@ class AccountController(
 
     private fun findAccountById(id: Long) =
             accountService.findById(id).orElseThrow {
-                throw BadRequestException(format("Account with id '%s' not found", id))
+                throw BadRequestException(format("AccountEntity with id '%s' not found", id))
             }
 }

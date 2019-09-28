@@ -199,7 +199,7 @@ Security Identity
 Имя класса
  ```
 `INSERT INTO acl_class (id, class) VALUES
- (1, 'com.domclick.entity.acl.Answer');`
+ (1, 'com.domclick.entity.acl.AnswerEntity');`
  ```
 * class - полное наименования класса
 

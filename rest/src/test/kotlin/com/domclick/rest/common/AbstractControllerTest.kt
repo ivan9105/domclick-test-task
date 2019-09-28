@@ -1,13 +1,15 @@
 package com.domclick.rest.common
 
 import com.domclick.app.RestApplication
-import com.domclick.entity.Account
-import com.domclick.entity.User
+import com.domclick.entity.AccountEntity
+import com.domclick.entity.UserEntity
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
 import org.flywaydb.core.Flyway
 import org.junit.Before
 import org.junit.runner.RunWith
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode.LENIENT
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -24,9 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner
 import java.io.InputStream
 import java.math.BigDecimal
 import java.nio.charset.Charset
-import kotlin.test.assertEquals
 import kotlin.text.Charsets.UTF_8
-
+//Todo убыстрить тесты исп отдельные конфиги и исп моки на репозитории
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [RestApplication::class], webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
@@ -89,23 +90,22 @@ abstract class AbstractControllerTest {
             )
 
     fun assertJson(expected: String, actual: String) {
-        assertEquals(
-                expected.replaceLineBreaksAndSpaces(),
-                actual.replaceLineBreaksAndSpaces()
-        )
+        JSONAssert.assertEquals(expected, actual, LENIENT)
     }
 
     fun assertJsonWithTimestamp(expected: String, actual: String) {
-        assertEquals(
+        JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndTimeStamp(),
-                actual.replaceLineBreaksAndSpacesAndTimeStamp()
+                actual.replaceLineBreaksAndSpacesAndTimeStamp(),
+                LENIENT
         )
     }
 
     fun assertJsonWithId(expected: String, actual: String) {
-        assertEquals(
+        JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndId(),
-                actual.replaceLineBreaksAndSpacesAndId()
+                actual.replaceLineBreaksAndSpacesAndId(),
+                LENIENT
         )
     }
 
@@ -128,14 +128,14 @@ abstract class AbstractControllerTest {
                     .replace(ID_REGEX, "\"id\":1,")
                     .replace(GET_ID_REGEX, "get/1")
 
-    fun createValidUser() = userRepository.save(User("Иванов", "Иван", "Иванович"))
+    fun createValidUser() = userRepository.save(UserEntity("Иванов", "Иван", "Иванович"))
 
     fun createValidAccount(
             balance: BigDecimal = BigDecimal(10)
-    ) = accountRepository.save(Account(balance, createValidUser()))
+    ) = accountRepository.save(AccountEntity(balance, createValidUser()))
 
-    fun deleteAccount(account: Account) = accountRepository.delete(reloadAccount(account))
+    fun deleteAccount(account: AccountEntity) = accountRepository.delete(reloadAccount(account))
 
-    fun reloadAccount(account: Account) = accountRepository.findById(account.id!!).get()
+    fun reloadAccount(account: AccountEntity) = accountRepository.findById(account.id!!).get()
 
 }

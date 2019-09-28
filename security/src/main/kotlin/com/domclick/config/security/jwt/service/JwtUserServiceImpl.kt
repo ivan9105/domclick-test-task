@@ -1,6 +1,6 @@
 package com.domclick.config.security.jwt.service
 
-import com.domclick.entity.jwt.JwtUser
+import com.domclick.entity.jwt.JwtUserEntity
 import com.domclick.repository.jwt.JwtUserRepository
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -20,7 +20,7 @@ class JwtUserServiceImpl(
 ) : UserDetailsService, JwtUserService {
 
     override fun save(username: String, password: String) = repository.save(
-            JwtUser().apply {
+            JwtUserEntity().apply {
                 this.username = username
                 this.password = bCryptFourStrengthEncoder.encode(password)
             }

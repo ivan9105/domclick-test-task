@@ -7,8 +7,7 @@ import javax.validation.constraints.PositiveOrZero
 
 @Entity
 @Table(name = "BANK_ACCOUNT")
-//Todo use data classes
-class Account(
+class AccountEntity(
         @NotNull(message = "Баланс не может быть пустым")
         @PositiveOrZero(message = "Баланс не может быть отрицательным")
         @Column(name = "BALANCE", nullable = false, precision = 19, scale = 2)
@@ -16,7 +15,7 @@ class Account(
 
         @ManyToOne
         @JoinColumn(name = "USER_ID", nullable = false)
-        var user: User? = null
+        var user: UserEntity? = null
 ) : BaseEntity() {
     @Transient
     var userId: String = ""

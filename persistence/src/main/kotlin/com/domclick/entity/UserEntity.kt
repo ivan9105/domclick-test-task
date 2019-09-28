@@ -8,8 +8,8 @@ import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "BANK_USER")
-@NamedEntityGraph(name = "User.accounts", attributeNodes = [(NamedAttributeNode("accounts"))])
-class User(
+@NamedEntityGraph(name = "UserEntity.accounts", attributeNodes = [(NamedAttributeNode("accounts"))])
+class UserEntity(
         @NotNull(message = "Имя не может быть пустым и превышать 255 символов")
         @Size(min = 1, max = 255, message = "Имя не может быть пустым и превышать 255 символов")
         @Column(name = "FIRST_NAME", nullable = false)
@@ -27,7 +27,7 @@ class User(
 ) : BaseEntity() {
 
     @OneToMany(mappedBy = "user", fetch = LAZY, cascade = [REMOVE])
-    var accounts: Set<Account> = mutableSetOf()
+    var accounts: Set<AccountEntity> = mutableSetOf()
 
     override fun toString() = String.format("%s %s %s", lastName, firstName, middleName)
 }

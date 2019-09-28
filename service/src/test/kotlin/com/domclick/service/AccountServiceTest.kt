@@ -1,10 +1,11 @@
 package com.domclick.service
 
-import com.domclick.entity.Account
-import com.domclick.entity.User
+import com.domclick.entity.AccountEntity
+import com.domclick.entity.UserEntity
 import com.domclick.exception.BadRequestException
 import com.domclick.repository.AccountRepository
 import com.domclick.repository.UserRepository
+import com.domclick.service.impl.AccountServiceImpl
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
@@ -224,9 +225,9 @@ class AccountServiceTest {
         assertEquals(BigDecimal("80.00"), account.balance)
     }
 
-    private fun getValidAccount(user: User) = Account(BigDecimal("100.00"), user)
+    private fun getValidAccount(user: UserEntity) = AccountEntity(BigDecimal("100.00"), user)
 
-    private fun getValidUser() = User("Иван", "Иванов", "Иванович")
+    private fun getValidUser() = UserEntity("Иван", "Иванов", "Иванович")
 
     private fun expectBadRequestException(msg: String) {
         expectedException.expect(BadRequestException::class.java)

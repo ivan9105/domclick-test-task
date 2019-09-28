@@ -1,6 +1,6 @@
 package com.domclick.repository
 
-import com.domclick.entity.oauth2.Company
+import com.domclick.entity.oauth2.CompanyEntity
 import com.domclick.repository.common.AbstractPostgresContainerRepositoryTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -15,9 +15,9 @@ class CompanyRepositoryTest : AbstractPostgresContainerRepositoryTest() {
 
     @Test
     fun crudTest() {
-        var company = companyRepository.save(Company().apply { name = "Haulmont" })
+        var company = companyRepository.save(CompanyEntity(name = "Haulmont"))
         company = companyRepository.findById(company.id!!).orElseThrow {
-            EntityNotFoundException("Company with id '${company.id}' not found")
+            EntityNotFoundException("CompanyEntity with id '${company.id}' not found")
         }
         val newCompanyName = "Мед. универ лол"
         company.name = newCompanyName
@@ -30,9 +30,9 @@ class CompanyRepositoryTest : AbstractPostgresContainerRepositoryTest() {
 
     @Test
     fun lockWithForceIncrementTestTransaction() {
-        var company = companyRepository.save(Company().apply { name = "Домклик" })
+        var company = companyRepository.save(CompanyEntity(name = "Домклик"))
         assertEquals(0, company.version)
-        company = em.find(Company::class.java, company.id, LockModeType.PESSIMISTIC_FORCE_INCREMENT)
+        company = em.find(CompanyEntity::class.java, company.id, LockModeType.PESSIMISTIC_FORCE_INCREMENT)
 
         TestTransaction.flagForCommit()
         TestTransaction.end()
