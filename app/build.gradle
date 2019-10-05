@@ -12,8 +12,22 @@ buildscript {
 }
 
 bootJar {
-    baseName = 'domclick-test-task'
+    getArchiveBaseName().set('domclick-test-task')
     version = '1.0-SNAPSHOT'
+
+    doLast {
+        def sep = File.separator
+        def jarPath = jar.getArchiveFile().get().getAsFile().getPath().replaceAll("app-1.0-SNAPSHOT.jar", "domclick-test-task-1.0-SNAPSHOT.jar")
+        def dockerDirPath = "${project.rootDir}" + sep + "deploy" + sep + "docker"
+
+        println("From " + jarPath)
+        println("Into " + dockerDirPath)
+
+        copy {
+            from jarPath
+            into dockerDirPath
+        }
+    }
 }
 
 dependencies {
@@ -25,6 +39,7 @@ dependencies {
     compile("org.mock-server:mockserver-client-java:5.4.1")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile("org.springframework.boot:spring-boot-starter-actuator:2.1.1.RELEASE")
 
     //test
     testCompile(group: 'org.mock-server', name: 'mockserver-netty', version: '5.4.1') {
@@ -36,6 +51,12 @@ dependencies {
 docker {
     dependsOn build
     name "domclick"
-    files bootJar.archivePath
-    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+
+    def sep = File.separator
+    dockerfile = new File(".." + sep + "deploy" + sep + "docker"  + sep + "Dockerfile")
+
+    def archiveFile = bootJar.getArchiveFile().get().getAsFile()
+
+    files archiveFile.getPath()
+    buildArgs(['JAR_FILE': "${archiveFile.getName()}"])
 }
