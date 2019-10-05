@@ -14,8 +14,6 @@ docker tag domclick $DOCKER_USER/domclick:latest
 docker push $DOCKER_USER/domclick:latest
 docker logout https://index.docker.io/v1/
 kubectl create secret docker-registry docker-hub-key --docker-server=https://index.docker.io/v1/ --docker-username=$DOCKER_USER --docker-password=$DOCKER_PASSWORD
-kubectl apply -f template/deployment.yaml
-kubectl apply -f template/service.yaml
-minikube service domclick --url
-
-#helm upgrade domclick --kube-context minikube --debug
+helm del --purge domclick
+helm install --name domclick . --set service.type=NodePort
+helm upgrade domclick --kube-context minikube --reset-values --values values.yaml -i --force --set docker.user="$DOCKER_USER" --debug .
