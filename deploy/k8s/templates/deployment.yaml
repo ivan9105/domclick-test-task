@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domclick
+  namespace: default
+  labels:
+    app: domclick
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: domclick
+  replicas: 1
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: domclick
+        version: latest
+    spec:
+      imagePullSecrets:
+        - name: docker-hub-key
+      containers:
+        - name:  domclick
+          image:  "{{.Values.docker.user}}/domclick:latest"
+          imagePullPolicy: "Always"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 100
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "500Mi"
+            limits:
+              cpu: "1"
+              memory: "1250Mi"
+          ports:
+            - name: http-port
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 240
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
