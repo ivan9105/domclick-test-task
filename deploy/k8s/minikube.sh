@@ -17,3 +17,7 @@ kubectl create secret docker-registry docker-hub-key --docker-server=https://ind
 helm del --purge domclick
 helm install --name domclick . --set service.type=NodePort
 helm upgrade domclick --kube-context minikube --reset-values --values values.yaml -i --force --set docker.user="$DOCKER_USER" --debug .
+#вызываем если в /etc/hosts не прописан domclick.lc
+#echo "$(minikube ip) domclick.lc" | sudo tee -a /etc/hosts
+#для linux открываем броузер по умолчанию
+#xdg-open http://domclick.lc

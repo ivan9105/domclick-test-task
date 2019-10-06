@@ -20,5 +20,3 @@ spec:
   externalTrafficPolicy: Cluster
 status:
   loadBalancer: {}
-
-#  Todo helm,gitignore

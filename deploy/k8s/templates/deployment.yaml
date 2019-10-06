@@ -1,62 +1,62 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: domclick
-  namespace: default
+  name: {{.Values.service.name}}
+  namespace: {{.Values.container.namespace}}
   labels:
-    app: domclick
+    app: {{.Values.service.name}}
 spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-    type: RollingUpdate
+    type: {{.Values.container.strategy}}
   selector:
     matchLabels:
-      app: domclick
+      app: {{.Values.service.name}}
   replicas: 1
   revisionHistoryLimit: 2
   template:
     metadata:
       labels:
-        app: domclick
+        app: {{.Values.service.name}}
         version: latest
     spec:
       imagePullSecrets:
-        - name: docker-hub-key
+        - name: {{.Values.container.imagePullSecrets}}
       containers:
-        - name:  domclick
+        - name:  {{.Values.service.name}}
           image:  "{{.Values.docker.user}}/domclick:latest"
-          imagePullPolicy: "Always"
+          imagePullPolicy: {{.Values.container.imagePullPolicy}}
           securityContext:
             runAsNonRoot: true
             runAsUser: 100
           resources:
             requests:
-              cpu: "200m"
-              memory: "500Mi"
+              cpu: {{.Values.container.resources.requests.cpu}}
+              memory: {{.Values.container.resources.requests.memory}}
             limits:
-              cpu: "1"
-              memory: "1250Mi"
+              cpu: {{.Values.container.resources.limits.cpu}}
+              memory: {{.Values.container.resources.limits.memory}}
           ports:
             - name: http-port
-              containerPort: 8080
+              containerPort: {{.Values.container.ports.appPort}}
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: "/health"
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 5
-            successThreshold: 1
-            failureThreshold: 3
-            timeoutSeconds: 10
+              path: {{.Values.container.readinessProbe.httpGet}}
+              port: {{.Values.container.ports.managementPort}}
+            initialDelaySeconds: {{.Values.container.readinessProbe.initialDelaySeconds}}
+            periodSeconds: {{.Values.container.readinessProbe.periodSeconds}}
+            successThreshold: {{.Values.container.readinessProbe.successThreshold}}
+            failureThreshold: {{.Values.container.readinessProbe.failureThreshold}}
+            timeoutSeconds: {{.Values.container.readinessProbe.timeoutSeconds}}
           livenessProbe:
             httpGet:
-              path: "/health"
-              port: 8080
-            initialDelaySeconds: 240
-            periodSeconds: 60
-            successThreshold: 1
-            failureThreshold: 3
-            timeoutSeconds: 10
+              path: {{.Values.container.livenessProbe.httpGet}}
+              port: {{.Values.container.ports.managementPort}}
+            initialDelaySeconds: {{.Values.container.livenessProbe.initialDelaySeconds}}
+            periodSeconds: {{.Values.container.livenessProbe.periodSeconds}}
+            successThreshold: {{.Values.container.livenessProbe.successThreshold}}
+            failureThreshold: {{.Values.container.livenessProbe.failureThreshold}}
+            timeoutSeconds: {{.Values.container.livenessProbe.timeoutSeconds}}
