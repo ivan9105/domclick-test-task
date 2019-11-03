@@ -1,6 +1,6 @@
 package com.domclick.service.impl
 
-import com.domclick.entity.oauth2.CompanyEntity
+import com.domclick.entity.CompanyEntity
 import com.domclick.exception.RollbackException
 import com.domclick.repository.CompanyRepository
 import com.domclick.service.CompanyService

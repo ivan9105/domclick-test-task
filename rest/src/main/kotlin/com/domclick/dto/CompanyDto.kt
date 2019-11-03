@@ -1,6 +1,6 @@
 package com.domclick.dto
 
-import com.domclick.entity.oauth2.CompanyEntity
+import com.domclick.entity.CompanyEntity
 import java.io.Serializable
 
 class CompanyDto(company: CompanyEntity) : Serializable {

@@ -1,6 +1,5 @@
-package com.domclick.entity.oauth2
+package com.domclick.entity
 
-import com.domclick.entity.BaseEntity
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import javax.persistence.*

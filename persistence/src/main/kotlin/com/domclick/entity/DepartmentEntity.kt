@@ -1,6 +1,5 @@
-package com.domclick.entity.oauth2
+package com.domclick.entity
 
-import com.domclick.entity.BaseEntity
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size

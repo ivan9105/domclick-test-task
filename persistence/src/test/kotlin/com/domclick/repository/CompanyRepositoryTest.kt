@@ -1,6 +1,6 @@
 package com.domclick.repository
 
-import com.domclick.entity.oauth2.CompanyEntity
+import com.domclick.entity.CompanyEntity
 import com.domclick.repository.common.AbstractPostgresContainerRepositoryTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

@@ -1,6 +1,6 @@
 package com.domclick.repository
 
-import com.domclick.entity.oauth2.CompanyEntity
+import com.domclick.entity.CompanyEntity
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

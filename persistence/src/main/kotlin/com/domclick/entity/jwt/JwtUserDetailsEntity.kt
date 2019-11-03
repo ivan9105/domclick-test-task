@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "JWT_USER")
-class JwtUserEntity : IdentifierEntity() {
+class JwtUserDetailsEntity : IdentifierEntity() {
         @Column
         var username: String? = null
         @Column

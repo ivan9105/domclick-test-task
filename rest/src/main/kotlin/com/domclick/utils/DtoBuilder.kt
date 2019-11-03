@@ -5,8 +5,8 @@ import com.domclick.dto.response.AccountResponse
 import com.domclick.dto.response.CompanyResponse
 import com.domclick.dto.response.UserResponse
 import com.domclick.entity.AccountEntity
+import com.domclick.entity.CompanyEntity
 import com.domclick.entity.UserEntity
-import com.domclick.entity.oauth2.CompanyEntity
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component

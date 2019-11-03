@@ -2,7 +2,7 @@ package com.domclick.creator.impl
 
 import com.domclick.creator.Creator
 import com.domclick.data.companyEntity
-import com.domclick.entity.oauth2.DepartmentEntity
+import com.domclick.entity.DepartmentEntity
 import com.domclick.repository.DepartmentRepository
 import org.springframework.stereotype.Component
 

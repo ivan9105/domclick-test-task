@@ -1,5 +1,7 @@
-package com.domclick.entity
+package com.domclick.entity.oauth2
 
+import com.domclick.entity.AuthorityEntity
+import com.domclick.entity.IdentifierEntity
 import org.apache.commons.lang.BooleanUtils.isFalse
 import org.apache.commons.lang.BooleanUtils.isTrue
 import org.springframework.security.core.userdetails.UserDetails
@@ -7,7 +9,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "USER_", uniqueConstraints = [(UniqueConstraint(columnNames = arrayOf("USER_NAME")))])
-class UserDetailsEntity : IdentifierEntity(), UserDetails {
+class OauthUserDetailsEntity : IdentifierEntity(), UserDetails {
     @Column(name = "USER_NAME")
     private var username: String? = null
 

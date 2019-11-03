@@ -1,7 +1,7 @@
 package com.domclick.data
 
-import com.domclick.entity.oauth2.CompanyEntity
-import com.domclick.entity.oauth2.DepartmentEntity
+import com.domclick.entity.CompanyEntity
+import com.domclick.entity.DepartmentEntity
 
 fun companyEntity(
         name: String = "Test"

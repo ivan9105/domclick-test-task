@@ -1,7 +1,7 @@
 package com.domclick.creator.impl
 
 import com.domclick.creator.Creator
-import com.domclick.entity.oauth2.CompanyEntity
+import com.domclick.entity.CompanyEntity
 import com.domclick.repository.CompanyRepository
 import org.springframework.stereotype.Component
 

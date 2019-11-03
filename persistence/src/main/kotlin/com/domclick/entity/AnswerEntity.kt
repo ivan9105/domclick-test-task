@@ -1,6 +1,5 @@
-package com.domclick.entity.acl
+package com.domclick.entity
 
-import com.domclick.entity.BaseEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
