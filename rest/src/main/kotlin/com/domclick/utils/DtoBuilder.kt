@@ -15,6 +15,8 @@ import org.springframework.util.CollectionUtils
 @Component
 @Scope("singleton")
 class DtoBuilder {
+    //Todo model mapper
+
     @Value("\${server.url}")
     lateinit var serverUrl: String
 
@@ -64,4 +66,6 @@ class DtoBuilder {
         res.links.add(LinkDto("withdraw", "POST", serverUrl + "api/account/withdraw"))
         return res
     }
+
+    //Todo
 }

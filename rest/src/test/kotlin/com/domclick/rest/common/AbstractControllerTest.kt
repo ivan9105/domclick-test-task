@@ -94,6 +94,7 @@ abstract class AbstractControllerTest {
     }
 
     fun assertJsonWithTimestamp(expected: String, actual: String) {
+        //Todo JSONCompareMode
         JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndTimeStamp(),
                 actual.replaceLineBreaksAndSpacesAndTimeStamp(),
@@ -102,6 +103,7 @@ abstract class AbstractControllerTest {
     }
 
     fun assertJsonWithId(expected: String, actual: String) {
+        //Todo JSONCompareMode
         JSONAssert.assertEquals(
                 expected.replaceLineBreaksAndSpacesAndId(),
                 actual.replaceLineBreaksAndSpacesAndId(),

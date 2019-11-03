@@ -24,6 +24,8 @@ class Oauth2Client(
             clientId: String,
             clientSecret: String
     ): Oauth2AccessTokenResponse {
+        //Todo retry template
+
         return restTemplate.exchange<Oauth2AccessTokenResponse>(
                 "${oauth2Properties.host}:${oauth2Properties.port}/oauth/token" +
                         "?grant_type=password" +
