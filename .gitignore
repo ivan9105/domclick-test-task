@@ -1,3 +1,6 @@
 *.iml
 *.idea
 */target
+
+deploy/k8s/config/docker_login.json
+deploy/docker/*.jar

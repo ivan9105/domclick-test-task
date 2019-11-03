@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: domclick
+  namespace: default
+  selfLink: /api/v1/namespaces/default/services/domclick
+  labels:
+    app: domclick
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 31970
+  selector:
+    app: domclick
+  clusterIP: 10.97.63.247
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}

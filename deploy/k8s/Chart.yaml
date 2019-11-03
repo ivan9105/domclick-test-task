@@ -1,0 +1,5 @@
+description: test application
+name: domclick
+version: 1.0.0
+sources:
+- https://github.com/ivan9105/spring-boot

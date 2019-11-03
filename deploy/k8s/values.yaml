@@ -1,0 +1,38 @@
+service:
+  name: domclick
+
+ingress:
+  enabled: false
+
+docker:
+  user: "-"
+
+container:
+  namespace: default
+  strategy: RollingUpdate
+  imagePullSecrets: docker-hub-key
+  imagePullPolicy: "Always"
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "500Mi"
+    limits:
+      cpu: "1"
+      memory: "1250Mi"
+  ports:
+    appPort: 8080
+    managementPort: 8080
+  readinessProbe:
+    httpGet: "/health"
+    initialDelaySeconds: 60
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+    timeoutSeconds: 10
+  livenessProbe:
+    httpGet: "/health"
+    initialDelaySeconds: 240
+    periodSeconds: 60
+    successThreshold: 1
+    failureThreshold: 3
+    timeoutSeconds: 10
